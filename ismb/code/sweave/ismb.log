@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.3)  15 AUG 2012 15:55
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.5.3)  16 AUG 2012 11:32
 entering extended mode
  %&-line parsing enabled.
 **ismb.tex
@@ -91,7 +91,7 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-(/usr/share/R/share/texmf/tex/latex/Sweave.sty
+(/usr/share/texmf/tex/latex/R/tex/latex/Sweave.sty
 Package: Sweave 
 
 (/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
@@ -129,7 +129,7 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 \c@FancyVerbLine=\count101
 \FV@StepNumber=\count102
 \FV@OutFile=\write3
-) (/usr/share/R/share/texmf/tex/latex/upquote.sty
+) (/usr/share/texmf/tex/latex/R/tex/latex/upquote.sty
 Package: upquote 2003/08/11 v1.1 Covington's upright-quote modification to verb
 atim and verb
 
@@ -221,7 +221,8 @@ LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
 
 (/usr/share/texmf-texlive/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-)))) (./ismb.aux)
+))))
+No file ismb.aux.
 \openout1 = `ismb.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
@@ -238,7 +239,6 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 12.
-
 (/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
@@ -343,20 +343,20 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 191.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 191.
- [8 <./ismb-010.pdf>] <ismb-013.pdf, id=81, 433.62pt x 433.62pt>
+ [8 <./ismb-010.pdf>] <ismb-013.pdf, id=82, 433.62pt x 433.62pt>
 File: ismb-013.pdf Graphic file (type pdf)
  <use ismb-013.pdf> [9 <./ismb-013.pdf>]
 LaTeX Font Info:    Try loading font information for TS1+aer on input line 296.
 
- (/usr/share/R/share/texmf/tex/latex/ts1aer.fd
+ (/usr/share/texmf/tex/latex/R/tex/latex/ts1aer.fd
 File: ts1aer.fd 
 )
 LaTeX Font Info:    Font shape `TS1/aer/m/n' in size <10> not available
 (Font)              Font shape `TS1/cmr/m/n' tried instead on input line 296.
  [10] (./ismb.aux) ) 
 Here is how much of TeX's memory you used:
- 4415 strings out of 495061
- 61071 string characters out of 1182622
+ 4413 strings out of 495061
+ 61081 string characters out of 1182622
  150669 words of memory out of 3000000
  7511 multiletter control sequences out of 15000+50000
  26886 words of font info for 60 fonts, out of 3000000 for 9000
@@ -369,9 +369,9 @@ texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texliv
 e/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type
 1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/ams
 fonts/cm/cmsltt10.pfb>
-Output written on ismb.pdf (10 pages, 198924 bytes).
+Output written on ismb.pdf (10 pages, 182143 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
+ 120 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  50 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -25,7 +25,7 @@ Load required libraries and data.
 > library(tm)
 > library(wordcloud)
 > library(sentiment)
-> load("~/Dropbox/projects/twitter/ismb/data/ismb.RData")
+> load("../../data/ismb.RData")
 \end{Sinput}
 \end{Schunk}
 
@@ -185,7 +185,7 @@ WK 3: Bioinformatics Core Facilities (Simon Andrews, Fran Lewitter, Brent Richte
 
 \subsection{The top 10}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Wed Aug 15 15:53:13 2012
+% Thu Aug 16 11:29:31 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{lr}
@@ -225,7 +225,7 @@ First, get all words composed only of alphanumeric characters.
 > print(xtable(head(words.t, 10), caption = "Top 10 words in tweets"), include.rownames = FALSE)
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Wed Aug 15 15:53:13 2012
+% Thu Aug 16 11:29:31 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{lr}
@@ -271,7 +271,7 @@ data & 251 \\
 > print(xtable(table(em[, "BEST_FIT"]), caption = "Tweet emotion"))
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Wed Aug 15 15:54:51 2012
+% Thu Aug 16 11:31:07 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{rr}
@@ -303,7 +303,7 @@ Hooray! First #comicsans talk of the conference. Didn't take long. It's like an 
 > print(xtable(table(po[, "BEST_FIT"]), caption = "Tweet polarity"))
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Wed Aug 15 15:55:22 2012
+% Thu Aug 16 11:31:37 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{rr}

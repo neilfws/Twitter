@@ -23,7 +23,7 @@ library(RColorBrewer)
 library(tm)
 library(wordcloud)
 library(sentiment)
-load("~/Dropbox/projects/twitter/ismb/data/ismb.RData")
+load("../../data/ismb.RData")
 @
 
 \section{Tweets per day}
