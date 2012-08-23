@@ -5,7 +5,7 @@
 \usepackage{listings}
 
 %opening
-\title{Statistical Analysis of ISMB Coverage at Twitter 2012}
+\title{Statistical Analysis of ISMB 2012 Coverage at Twitter}
 \author{Neil Saunders}
 
 \begin{document}

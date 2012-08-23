@@ -5,7 +5,7 @@
 \usepackage{listings}
 
 %opening
-\title{Statistical Analysis of ISMB Coverage at Twitter 2012}
+\title{Statistical Analysis of ISMB 2012 Coverage at Twitter}
 \author{Neil Saunders}
 
 \usepackage{Sweave}
@@ -185,7 +185,7 @@ WK 3: Bioinformatics Core Facilities (Simon Andrews, Fran Lewitter, Brent Richte
 
 \subsection{The top 10}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Thu Aug 16 11:29:31 2012
+% Thu Aug 23 13:35:01 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{lr}
@@ -225,7 +225,7 @@ First, get all words composed only of alphanumeric characters.
 > print(xtable(head(words.t, 10), caption = "Top 10 words in tweets"), include.rownames = FALSE)
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Thu Aug 16 11:29:31 2012
+% Thu Aug 23 13:35:02 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{lr}
@@ -271,7 +271,7 @@ data & 251 \\
 > print(xtable(table(em[, "BEST_FIT"]), caption = "Tweet emotion"))
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Thu Aug 16 11:31:07 2012
+% Thu Aug 23 13:36:39 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{rr}
@@ -303,7 +303,7 @@ Hooray! First #comicsans talk of the conference. Didn't take long. It's like an 
 > print(xtable(table(po[, "BEST_FIT"]), caption = "Tweet polarity"))
 \end{Sinput}
 % latex table generated in R 2.15.1 by xtable 1.7-0 package
-% Thu Aug 16 11:31:37 2012
+% Thu Aug 23 13:37:09 2012
 \begin{table}[ht]
 \begin{center}
 \begin{tabular}{rr}
