@@ -1,0 +1,218 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage[top=1.5cm, bottom=1.5cm,left=2cm,right=1.5cm]{geometry}
+\usepackage{url}
+\usepackage[hyperfootnotes=false]{hyperref}
+\usepackage{listings}
+\usepackage[nogin]{Sweave}
+
+%opening
+\title{Analysis of the \#thankcsiroforthat Twitter hashtag}
+\author{Neil Saunders}
+\lstset{breaklines=true}
+
+\renewcommand*\rmdefault{phv}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+\maketitle
+
+\section{Introduction}
+<<echo=FALSE, results=hide>>=
+# load data and setup variables
+require(ggplot2)
+require(reshape2)
+require(tm)
+require(tm.plugin.sentiment)
+require(wordcloud)
+require(xtable)
+setwd("~/Dropbox/projects/twitter/csiro/code/sweave")
+load("../../data/thankcsirojson.RData")
+datetime <- strptime(thankcsiro$timestamp, "%a %b %d %H:%M:%S %z %Y")
+date <- as.Date(datetime)
+hour <- datetime$hour
+dt.count <- as.data.frame(table(date, hour))
+users <- as.data.frame(table(thankcsiro$username))
+users <- users[order(users$Freq, decreasing = T),]
+colnames(users) <- c("user", "tweets")
+m <- match(users$user, thankcsiro$username)
+users$followers <- thankcsiro[m, "followers"]
+thankcsiro.uniq <- thankcsiro[!duplicated(thankcsiro[, 'text']), ]
+@
+
+\Sexpr{nrow(thankcsiro)} tweets with the hashtag \#thankcsiroforthat were retrieved. The text of \Sexpr{nrow(thankcsiro.uniq)} tweets was unique.
+
+\section{Tweet frequency}
+Tweets with the \#thankcsiroforthat hashtag peaked early on the first day at \Sexpr{max(dt.count$Freq)} per hour, then continued at a steady rate throughout the next day.
+
+\begin{figure}[h]
+\begin{center}
+<<fig=TRUE, echo=FALSE>>=
+print(ggplot(dt.count) + geom_bar(aes(hour, Freq), stat = "identity", fill = "deepskyblue3") + theme(strip.text.y = element_text(size = 6), panel.background = element_rect(fill = "white")) + facet_grid(date ~ .) + labs(x = "Hour", y = "Tweets"))
+@
+\caption{\#thankcsiroforthat tweets per hour}
+\end{center}
+\end{figure}
+
+\newpage
+
+\section{Twitter users}
+\Sexpr{nrow(users)} posted at least one tweet. \Sexpr{nrow(subset(users, tweets > 1))} posted more than one tweet. Here are the top 20 users by tweets, with follower count.
+
+\begin{figure}[h]
+\begin{center}
+<<fig=TRUE, echo=FALSE>>=
+users.20 <- head(users, 20)
+users.20$user <- factor(users.20$user, levels = as.character(users.20$user))
+print(ggplot(users.20) + geom_bar(aes(user, tweets), stat = "identity", fill = "deepskyblue3") + theme_bw() + coord_flip() + geom_text(aes(user, tweets, label = followers), y = 3, color = "white", size = 4) + labs(x = "Tweets", y = "User"))
+@
+\caption{Top 20 users by number of tweets; numbers (white) = followers}
+\end{center}
+\end{figure}
+
+%\newpage
+
+\section{Retweets and favourites}
+Most retweets: \Sexpr{max(thankcsiro$retweet)}.
+
+\begin{lstlisting}
+<<echo=FALSE, results=tex>>=
+rt <- as.character(unique(thankcsiro[which(thankcsiro$retweet == max(thankcsiro$retweet)), "text"]))
+rt
+@
+\end{lstlisting}
+
+<<echo=FALSE>>=
+fave <- unique(thankcsiro[which(thankcsiro$favorite == max(thankcsiro$favorite)), ])
+@
+
+\noindent Most favourites: \Sexpr{fave$favorite} (\Sexpr{fave$username}).
+
+\begin{lstlisting}
+<<echo=FALSE, results=tex>>=
+as.character(fave$text)
+@
+\end{lstlisting}
+
+\newpage
+
+\section{Word frequency}
+<<echo=FALSE,results=hide>>=
+pal2 <- brewer.pal(8, "Dark2")
+# function to count words
+countWords <- function(text) {
+  words <- lapply(text, function(x) x[grep("^[A-Za-z0-9]+$", x)])
+  words <- unlist(words)
+  words <- tolower(words)
+  words <- words[-grep("^[rm]t$", words)]
+  sw <- stopwords("en")
+  words <- words[!words %in% sw]
+  words.t <- as.data.frame(table(words))
+  words.t <- words.t[sort.list(words.t$Freq, decreasing = T),]
+  return(words.t)
+}
+@
+
+%\subsection{Using unique tweet text}
+<<fig=TRUE, echo=FALSE, include=FALSE, label=cloud>>=
+wordcount <- countWords(strsplit(unique(as.character(thankcsiro$text)), " "))
+wordcloud(wordcount$words, wordcount$Freq, scale = c(8, .2), min.freq = 3,
+          max.words = 150, random.order = FALSE, rot.per = .15, colors = pal2)
+@
+
+For those who like word clouds.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.55]{thankCSIROjson-cloud.pdf}
+\caption{Top 150 words appearing 3 or more times in \Sexpr{nrow(thankcsiro.uniq)} unique tweets with hashtag \#thankcsiroforthat}
+\end{center}
+\end{figure}
+
+<<fig=TRUE, echo=FALSE, include=FALSE, label=bar>>=
+words.20 <- head(wordcount, 20)
+words.20$words <- factor(words.20$words, levels = as.character(words.20$words))
+print(ggplot(words.20) + geom_bar(aes(words, Freq), stat = "identity", fill = "deepskyblue3") + theme_bw() + coord_flip() + labs(x = "Count", y = "Word"))
+@
+
+\noindent For those who like bar graphs.
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.55]{thankCSIROjson-bar.pdf}
+\caption{Top 20 words appearing 2 or more times in \Sexpr{nrow(thankcsiro.uniq)} unique tweets with hashtag \#thankcsiroforthat}
+\end{center}
+\end{figure}
+
+\newpage
+
+%\subsection{Using all tweet text}
+%\begin{figure}[h]
+%\begin{center}
+%<<fig=TRUE, echo=FALSE>>=
+%wordcount <- countWords(strsplit(as.character(thankcsiro$text), " "))
+%wordcloud(wordcount$words, wordcount$Freq, scale = c(8, .2), min.freq = 3,
+%          max.words = 150, random.order = FALSE, rot.per = .15, colors = pal2)
+%@
+%\end{center}
+%\end{figure}
+%
+%\begin{figure}[h]
+%\begin{center}
+%<<fig=TRUE, echo=FALSE>>=
+%words.20 <- head(wordcount, 20)
+%words.20$words <- factor(words.20$words, levels = as.character(words.20$words))
+%print(ggplot(words.20) + geom_bar(aes(words, Freq), stat = "identity", fill = "deepskyblue3") + theme_bw() + coord_flip())
+%@
+%\end{center}
+%\end{figure}
+%
+%\newpage
+
+\section{Sentiment analysis}
+Disclaimer: sentiment analysis is (mostly, probably) rubbish. The methods used here are from Godbole \textit{et al.}\footnote{Godbole, N., Srinivasaiah, M. and Skiena, S. Large-Scale Sentiment Analysis for News and Blogs. Int. Conf. on Weblogs and Social Media (ICWSM 2007), Denver CO, March 26-28, 2007. \href{http://icwsm.org/papers/3--Godbole-Srinivasaiah-Skiena.pdf}{PDF}} Most tweets were classified as neutral or positive.
+
+<<fig=TRUE, echo=FALSE, include=FALSE, label=senticount>>=
+tm_tag_score <- tm_term_score
+words.corpus <- Corpus(VectorSource(as.character(thankcsiro.uniq$text)))
+words.corpus <- score(words.corpus)
+scores <- meta(words.corpus)
+neg <- unique(as.character(thankcsiro$text))[which(scores$senti_diffs_per_ref < 0)]
+pos <- unique(as.character(thankcsiro$text))[which(scores$senti_diffs_per_ref > 0)]
+neu <- unique(as.character(thankcsiro$text))[which(scores$senti_diffs_per_ref == 0)]
+senti <- melt(data.frame(negative = length(neg), neutral = length(neu), positive = length(pos)))
+print(ggplot(senti) + geom_bar(aes(variable, value), stat = "identity", fill = "deepskyblue3") + theme_bw() + labs(x = "Sentiment", y = "Tweets"))
+@
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.55]{thankCSIROjson-senticount.pdf}
+\caption{Number of tweets classed as negative, neutral or positive sentiment in \Sexpr{nrow(thankcsiro.uniq)} unique tweets with hashtag \#thankcsiroforthat}
+\end{center}
+\end{figure}
+
+<<fig=TRUE, echo=FALSE, include=FALSE, label=sentitime>>=
+datetime <- strptime(thankcsiro.uniq$timestamp, "%a %b %d %H:%M:%S %z %Y")
+cols <- rep(NA, nrow(scores))
+for(i in 1:length(scores$senti_diffs_per_ref)) {
+  if(scores$senti_diffs_per_ref[i] < 0) {
+    cols[i] <- "orange"
+  }
+  else if(scores$senti_diffs_per_ref[i] > 0) {
+    cols[i] <- "blue"
+  }
+  else {
+    cols[i] <- "black"
+  }
+}
+print(ggplot() + geom_point(aes(x = datetime, y = scores$senti_diffs_per_ref), color = cols) + scale_x_datetime(breaks = "6 hours") + geom_smooth(aes(x = datetime, y = scores$senti_diffs_per_ref)) + theme(axis.text.x = element_text(angle = 90, vjust = 0.5), panel.background = element_rect(fill = "white")) + labs(x = "Time", y = "Sentiment score"))
+@
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[scale=0.55]{thankCSIROjson-sentitime.pdf}
+\caption{Tweet sentiment over time for tweets with hashtag \#thankcsiroforthat. Blue = positive, orange = negative, black = neutral.}
+\end{center}
+\end{figure}
+
+\end{document}
