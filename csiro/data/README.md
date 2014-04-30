@@ -7,3 +7,5 @@ If you ran a script such as the one in code/ruby/thankcsiro.rb on 2014-04-16, yo
 One week later on 2014-04-23, you would have retrieved 275 tweets, of which 60 were previously unseen.
 
 So that is what was done; the JSON files from both days were named by date, then combined into a data frame of 859 tweets using the R code in code/R/CSIROjson2data.R. 
+
+Note: thankcsiro.rb does not return the JSON files in data/; they were obtained using repeated curl calls with the next_results parameter until no more results were returned.
