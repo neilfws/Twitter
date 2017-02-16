@@ -1,0 +1,415 @@
+Twitter Coverage of the Lorne Genome Conference 2017
+========================================================
+author: Neil Saunders
+date: `r Sys.time()`
+autosize: true
+
+<style>
+.footer {
+    color: black; background: #E8E8E8;
+    position: fixed; top: 90%;
+    text-align:left; width:100%;
+}
+
+.reveal h1, .reveal h2, .reveal h3 {
+  word-wrap: normal;
+  hyphens: none;
+}
+
+.small-code pre code {
+  font-size: 0.8em;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(rtweet)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(knitr)
+library(wordcloud)
+library(tidytext)
+library(igraph)
+
+theme_set(theme_bw())
+```
+
+```{r load-data, cache=TRUE}
+#load("../../data/lorne.RData")
+lorne <- search_tweets("#lornegenome", n = 5000)
+```
+
+Timeline
+========================================================
+id: timeline
+
+<div class="footer" style="font-size:60%;">
+`r nrow(lorne)` tweets were retrieved. The majority of tweets were posted during the conference (February 12-14), with some posted in the week prior to the event.
+Peaks of activity during the morning sessions on February 13-14 may correspond to keynote speakers. It would be interesting to mash up these data with the conference program schedule.
+</div>
+
+```{r tweets-by-day}
+lorne %>% 
+  mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>% 
+  group_by(date) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
+    labs(x = "Date", y = "Tweets", title = "#lornegenome 2017 tweets per day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+```{r tweets-by-day-hour}
+lorne %>% 
+  mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>% 
+  group_by(date = as_date(datetime), hour) %>% 
+  summarise(count = n()) %>% 
+  filter(date > as_date("2017-02-11"), date < as_date("2017-02-15")) %>% 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(date ~ .) + 
+    labs(x = "Hour", y = "Tweets", title = "#lornegenome 2017 tweets by time of day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+Users
+========================================================
+id: users
+
+<div class="footer" style="font-size:60%;">
+The "top tweeters" are always of interest! Here's everyone who tweeted 10 or more times.
+The iPhone is the device of choice for the genome crowd.
+</div>
+
+```{r tweets-top-users}
+lorne %>% 
+  group_by(screen_name) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 10) %>% 
+  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Screen Name", y = "Tweets", title = "#lornegenome 2017 tweets by user", subtitle = "users with >= 10 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+```{r tweets-top-sources}
+lorne %>% 
+  group_by(source) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 5) %>% 
+  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Source", y = "Tweets", title = "#lornegenome 2017 tweets by source", subtitle = "sources with >= 5 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+The replies network
+========================================================
+id: replies
+
+<div class="footer" style="font-size:60%;margin-top:80px;">
+Network constructed from users who replied directly to one another. Better to look at the original image in the Github repo.
+</div>
+
+![](../../data/lorne_replies.png)
+
+The mentions network
+========================================================
+id: mentions
+
+<div class="footer" style="font-size:60%;margin-top:80px;">
+Network constructed from users who mentioned one or more users in their tweets. Better to look at the original image in the Github repo.
+</div>
+
+![](../../data/lorne_mentions.png)
+
+Network code
+========================================================
+id: networks
+class: small-code
+
+<div class="footer" style="font-size:60%;">
+We can define two types of interaction: the "replies" network (users who reply directly to one another's tweets) and the "mentions" network (users who mention one or more users in their tweets). This code uses `igraph` to generate those networks and save the results for visualisation using Gephi.
+</div>
+
+```{r reply-network, echo=TRUE, eval=FALSE}
+lorne_replies <- lorne %>% 
+  filter(!is.na(in_reply_to_status_screen_name)) %>% 
+  select(screen_name, in_reply_to_status_screen_name) %>% 
+  graph.data.frame(directed = TRUE)
+
+V(lorne_replies)$label <- V(lorne_replies)$name
+V(lorne_replies)$id    <- V(lorne_replies)$name
+
+
+write_graph(lorne_replies, file = "lorne_replies.graphml", format = "graphml")
+```
+
+***
+
+```{r mentions-network, echo=TRUE, eval=FALSE}
+lorne_mentions <- lorne %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  select(screen_name, mentions_screen_name) %>% 
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
+  unnest(mentions_screen_name) %>% 
+  graph.data.frame()
+
+V(lorne_mentions)$label <- V(lorne_mentions)$name
+V(lorne_mentions)$id    <- V(lorne_mentions)$name
+
+write_graph(lorne_mentions, file = "lorne_mentions.graphml", format = "graphml")
+```
+
+Retweets
+========================================================
+id: retweets
+
+<div class="footer" style="font-size:60%;">
+Slightly more than half of the conference tweets are retweets.
+The frequency of retweets per tweet shows a lumpy distribution which is somewhat "long-tailed", skewed by a few highly-retweeted tweets.
+</div>
+
+```{r is-retweet}
+lorne %>% 
+  group_by(is_retweet) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is retweet", y = "Tweets", title = "#lornegenome 2017 tweets by retweet status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+```{r retweet-count}
+lorne %>% 
+  ggplot(aes(retweet_count)) + geom_histogram(bins = max(lorne$retweet_count), fill = "skyblue3") +
+    labs(x = "Retweet count", y = "Tweets", title = "#lornegenome 2017 distribution of retweets per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+Top 10 most retweeted: 1-5
+========================================================
+id: top-retweets-1
+
+```{r most-retweeted}
+lorne_retweets <- lorne %>% 
+  filter(is.na(retweet_status_id)) %>% 
+  select(screen_name, text, retweet_count) %>% 
+  arrange(desc(retweet_count)) %>% 
+  distinct() 
+
+lorne_retweets %>% 
+  slice(1:5) %>% 
+  kable()
+```
+
+Top 10 most retweeted: 6-10
+========================================================
+id: top-retweets-2
+
+```{r most-retweeted-2}
+lorne_retweets %>% 
+  slice(6:10) %>% 
+  kable()
+```
+
+Favorites
+========================================================
+id: favorites
+
+<div class="footer" style="font-size:60%;">
+Favorites per tweet follow a more classical long-tailed distribution than retweets, with most tweets receiving zero favorites. However, the most-favorited tweets receive more votes than the most retweeted.
+</div>
+
+```{r has-favorite}
+lorne %>% 
+  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>% 
+  count(has_favorite) %>%
+  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has favorite", y = "Tweets", title = "#lornegenome 2017 tweets by favorited status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+```{r favorite-count}
+lorne %>% 
+  ggplot(aes(favorite_count)) + geom_histogram(bins = max(lorne$favorite_count), fill = "skyblue3") +
+    labs(x = "Favorite count", y = "Tweets", title = "#lornegenome 2017 distribution of favorites per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+Top 10 most favorited: 1-5
+========================================================
+id: top-favorites-1
+
+```{r most-favorited}
+lorne_favorites <- lorne %>% 
+  select(screen_name, text, favorite_count) %>% 
+  arrange(desc(favorite_count)) %>% 
+  distinct()
+
+lorne_favorites %>% 
+  slice(1:5) %>% 
+  kable()
+```
+
+Top 10 most favorited: 6-10
+========================================================
+id: top-favorites-2
+
+```{r most-favorited-2}
+lorne_favorites %>% 
+  slice(6:10) %>% 
+  kable()
+```
+
+Quotes
+========================================================
+id: quotes
+
+<div class="footer" style="font-size:60%;">
+Only a small proportion of tweets quote other tweets.
+<br />
+When quoted, tweets are most commonly quoted once. The most-quoted tweet was quoted 9 times.
+</div>
+
+```{r is-quote}
+lorne %>% 
+  group_by(is_quote_status) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is quote", y = "Tweets", title = "#lornegenome 2017 tweets by quote status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+```{r quotes-count}
+lorne %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
+    labs(x = "Quote count", y = "Tweets", title = "#lornegenome 2017 distribution of quotes per tweet") + 
+    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+Top 10 most quoted: 1-5
+========================================================
+id: top-quotes-1
+
+```{r most-quoted}
+lorne_quoted <- lorne %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  filter(n > 1) %>% 
+  arrange(desc(n)) %>% 
+#  slice(1:10) %>% 
+  inner_join(select(lorne, screen_name, quote_status_id, is_retweet, text)) %>% 
+  filter(is_retweet == FALSE) %>% 
+  select(screen_name, text, quote_count = n)
+
+lorne_quoted %>%
+  slice(1:5) %>%
+  kable()
+```
+
+Top 10 most quoted: 6-10
+========================================================
+id: top-quotes-2
+
+```{r most-quoted-2}
+lorne_quoted %>%
+  slice(6:10) %>%
+  kable()
+```
+
+Media
+========================================================
+id: media
+
+```{r has-media}
+lorne %>% 
+  mutate(has_media = !is.na(media_id)) %>% 
+  group_by(has_media) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has media", y = "Tweets", title = "#lornegenome 2017 tweets by media status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+***
+
+<div style="font-size:60%;">
+A sizeable fraction (`r lorne %>% filter(!is.na(media_id)) %>% nrow()` / `r nrow(lorne)`) of tweets have attached media files.
+</div>
+
+Most-liked media 1-5
+========================================================
+id: top-media-1
+
+```{r liked-media}
+lorne_media <- lorne %>% 
+  filter(!is.na(media_id)) %>% 
+  arrange(desc(favorite_count))
+
+lorne_media %>% 
+  slice(1:5) %>% 
+  select(screen_name, text, favorite_count) %>%
+  kable()
+```
+
+Most-liked media 6-10
+========================================================
+id: top-media-2
+
+```{r liked-media-2}
+lorne_media %>% 
+  slice(6:10) %>% 
+  select(screen_name, text, favorite_count) %>%
+  kable()
+```
+
+Most-liked media image
+========================================================
+id: top-media-image
+
+![](`r lorne_media[1, "media_url"]`)
+
+Tweet text
+========================================================
+id: text
+
+```{r count-words}
+data("stop_words")
+
+lorne_words <- lorne %>% 
+  filter(is_retweet == FALSE) %>% 
+  unnest_tokens(word, text) %>% 
+  select(word)
+
+lorne_words %>% 
+  filter(word != "lornegenome", word != "https", word != "t.co", !word %in% tolower(lorne$screen_name), !grepl("^\\d+$", word)) %>% 
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  with(wordcloud(word, n, max.words = 100, min.freq = 3, colors = brewer.pal(9, "BuPu")))
+```
+
+***
+
+<div style="font-size:60%;">
+Text of all non-retweets was tokenised to words. The conference hashtag, users screen names and recognisable components of URLs were removed from the word list before generation of the word cloud.
+<br />
+The word cloud contains the top 100 words with frequency > 3.
+</div>
+
+The end
+========================================================
+id: last
+
+Thanks for reading.
+
+_Neil Saunders_ [@neilfws](https://twitter.com/neilfws)
