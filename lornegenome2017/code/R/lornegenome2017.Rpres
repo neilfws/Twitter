@@ -38,6 +38,8 @@ theme_set(theme_bw())
 
 ```{r load-data, cache=TRUE}
 #load("../../data/lorne.RData")
+# NOTE: code only works if twitter_token saved and
+# .Renviron set up as in rtweet documentation
 lorne <- search_tweets("#lornegenome", n = 5000)
 ```
 
@@ -302,6 +304,8 @@ Top 10 most quoted: 1-5
 id: top-quotes-1
 
 ```{r most-quoted}
+# NOTE: this is not quite working as hoped
+# there are duplicates
 lorne_quoted <- lorne %>% 
   filter(!is.na(quote_status_id)) %>% 
   count(quote_status_id) %>% 

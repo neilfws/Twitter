@@ -1,7 +1,7 @@
 Twitter Coverage of the Lorne Genome Conference 2017
 ========================================================
 author: Neil Saunders
-date: 2017-02-16 20:47:58
+date: 2017-02-16 22:22:40
 autosize: true
 
 <style>
@@ -30,7 +30,7 @@ Timeline
 id: timeline
 
 <div class="footer" style="font-size:60%;">
-1532 tweets were retrieved. The majority of tweets were posted during the conference (February 12-14), with some posted in the week prior to the event.
+1538 tweets were retrieved. The majority of tweets were posted during the conference (February 12-14), with some posted in the week prior to the event.
 Peaks of activity during the morning sessions on February 13-14 may correspond to keynote speakers. It would be interesting to mash up these data with the conference program schedule.
 </div>
 
@@ -138,9 +138,9 @@ id: top-retweets-1
 |screen_name    |text                                                                                                                                                                     | retweet_count|
 |:--------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------:|
 |minouye271     |Fab talk by @natar210 on creating a map of interactions b/n metabolome &amp; immune gene networks in blood! #LorneGenome https://t.co/YiDhrAXEnK https://t.co/V66yimEQkT |            19|
-|sritchie73     |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0                                                                              |            17|
+|sritchie73     |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0                                                                              |            18|
 |AliciaOshlack  |9 Aboriginal elders are authors on the DNA sequencing Nature paper #lorneGenome https://t.co/fTyFtb74rm                                                                  |            17|
-|MerlinCrossley |The polyA tail is not 'just a boring string of As - it can also contain Gs or Us' #lorneGenome https://t.co/SsuoNfCZAS                                                   |            14|
+|MerlinCrossley |The polyA tail is not 'just a boring string of As - it can also contain Gs or Us' #lorneGenome https://t.co/SsuoNfCZAS                                                   |            15|
 |sjturn         |#lorneGenome Advice from bioinformatics workshop, if you plan to do large data expts, get buy in early from bioinformatician so design is 👍                              |            14|
 
 Top 10 most retweeted: 6-10
@@ -177,7 +177,7 @@ id: top-favorites-1
 
 |screen_name   |text                                                                                                     | favorite_count|
 |:-------------|:--------------------------------------------------------------------------------------------------------|--------------:|
-|sritchie73    |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0              |             49|
+|sritchie73    |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0              |             59|
 |AliciaOshlack |9 Aboriginal elders are authors on the DNA sequencing Nature paper #lorneGenome https://t.co/fTyFtb74rm  |             35|
 |AliciaOshlack |Platypus has 10 sex chromosomes! #lorneGenome @ProfJennyGraves                                           |             25|
 |qinqin_huang  |didn't expect it would be so great talking to people I don't know!! #LorneGenome https://t.co/qE2PLvGFN8 |             22|
@@ -220,23 +220,23 @@ id: top-quotes-1
 |screen_name     |text                                                                                                                                | quote_count|
 |:---------------|:-----------------------------------------------------------------------------------------------------------------------------------|-----------:|
 |kathrynpenelope |Ozren Bogdanovic is the winner of this year's Millenium Science Award for young researchers at #lorneGenome https://t.co/5lBdv7D2Jb |           9|
+|laura_boykin    |Hmmmm. Australia has some work to do too. Hello #manusisland  &amp; #nauru #lorneGenome #refugee https://t.co/4SjOQaUZJ1            |           4|
 |lachlancoin     |I think @minouye271 currently winning this with two #lorneGenome  preprints https://t.co/XYU1i6m3Lm                                 |           4|
-|laura_boykin    |Hmmmm. Australia has some work to do too. Hello #manusisland  &amp; #nauru #lorneGenome #refugee https://t.co/4SjOQaUZJ1            |           3|
 |methylnick      |don't forget #biology the #bio in #bioinformatics #lornegenome #iamNOTaBioinformatician https://t.co/dCcu7V9l4o                     |           3|
-|kathrynpenelope |All the Cs by the Sea at #LorneGenome https://t.co/2VAomURTBJ                                                                       |           3|
+|methylnick      |Nice to put name to face. #lornegenome https://t.co/hqBPFCEZbK                                                                      |           3|
 
 Top 10 most quoted: 6-10
 ========================================================
 id: top-quotes-2
 
 
-|screen_name     |text                                                                     | quote_count|
-|:---------------|:------------------------------------------------------------------------|-----------:|
-|kathrynpenelope |All the Cs by the Sea at #LorneGenome https://t.co/2VAomURTBJ            |           3|
-|methylnick      |Nice to put name to face. #lornegenome https://t.co/hqBPFCEZbK           |           3|
-|methylnick      |#lorneGenome next? I miss #lorne #Melbournian https://t.co/yx7yNSE8uB    |           2|
-|GenomeConf      |Bruce Stillman is talking about ORC #lorneGenome https://t.co/H994xVX4HN |           2|
-|GenomeConf      |Bruce Stillman is talking about ORC #lorneGenome https://t.co/H994xVX4HN |           2|
+|screen_name     |text                                                                                                                                 | quote_count|
+|:---------------|:------------------------------------------------------------------------------------------------------------------------------------|-----------:|
+|methylnick      |#lorneGenome next? I miss #lorne #Melbournian https://t.co/yx7yNSE8uB                                                                |           2|
+|AliciaOshlack   |Poster 111 tonight at #lorneGenome! Detecting pathogenic STR expansions with WGS by my PhD student @hdashnow https://t.co/Yi80CiLEH8 |           2|
+|kathrynpenelope |All the Cs by the Sea at #LorneGenome https://t.co/2VAomURTBJ                                                                        |           2|
+|CSHeartResearch |Well presented to an international crowd at #LorneGenome #HCM #ancestry https://t.co/BYdwJ6MzGS                                      |           2|
+|minouye271      |Awesome PhD student @qinqin_huang &amp; her poster at #LorneGenome. Watch out for this one!! https://t.co/jXWjcDmYsX                 |           2|
 
 Media
 ========================================================
@@ -247,7 +247,7 @@ id: media
 ***
 
 <div style="font-size:60%;">
-A sizeable fraction (306 / 1532) of tweets have attached media files.
+A sizeable fraction (309 / 1538) of tweets have attached media files.
 </div>
 
 Most-liked media 1-5
@@ -257,7 +257,7 @@ id: top-media-1
 
 |screen_name    |text                                                                                                                                   | favorite_count|
 |:--------------|:--------------------------------------------------------------------------------------------------------------------------------------|--------------:|
-|sritchie73     |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0                                            |             49|
+|sritchie73     |This cockatoo finally managed to steal a caramel slice #LorneGenome https://t.co/rqfStYXnM0                                            |             59|
 |qinqin_huang   |didn't expect it would be so great talking to people I don't know!! #LorneGenome https://t.co/qE2PLvGFN8                               |             22|
 |minouye271     |What happens when u tell ur PhD student to just order a bunch of stuff @sritchie73 #LorneGenome https://t.co/xY7nvEhfwx                |             21|
 |MerlinCrossley |The polyA tail is not 'just a boring string of As - it can also contain Gs or Us' #lorneGenome https://t.co/SsuoNfCZAS                 |             21|
