@@ -304,8 +304,6 @@ Top 10 most quoted: 1-5
 id: top-quotes-1
 
 ```{r most-quoted}
-# NOTE: this is not quite working as hoped
-# there are duplicates
 lorne_quoted <- lorne %>% 
   filter(!is.na(quote_status_id)) %>% 
   count(quote_status_id) %>% 
@@ -314,7 +312,8 @@ lorne_quoted <- lorne %>%
 #  slice(1:10) %>% 
   inner_join(select(lorne, screen_name, quote_status_id, is_retweet, text)) %>% 
   filter(is_retweet == FALSE) %>% 
-  select(screen_name, text, quote_count = n)
+  select(screen_name, text, quote_count = n) %>%
+  distinct()
 
 lorne_quoted %>%
   slice(1:5) %>%
