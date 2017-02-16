@@ -1,1 +1,0 @@
-Code and data for bioinformatics-related Twitter analysis, _e.g._ ISMB conference coverage.
