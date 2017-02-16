@@ -1,5 +1,9 @@
 ismb/data/twitterOAuth.RData
 ismb/scratch
 .Rproj.user
-csiro/scratch
-
+*scratch*
+.DS_Store
+*.log
+.Rhistory
+*cache*
+*rsconnect*
