@@ -1,2 +1,3 @@
 *.Rmd linguist-language=R
 *.Rnw linguist-language=R
+lornegenome2017/code/R/*.html linguist-documentation
