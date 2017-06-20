@@ -49,19 +49,67 @@ The "mentions network", where users mention other users in their tweets, was con
 ![](sbrs17_files/figure-html/retweet-count-1.png)<!-- -->
 
 ## Top retweets
-
-screen_name      text                                                                                                                                            retweet_count
----------------  ---------------------------------------------------------------------------------------------------------------------------------------------  --------------
-koadman          Bioinformatics research as defined by Geoff Barton. Peer reviewed journal publications just one of many outputs… https://t.co/zKZA6yLPPF                   23
-nat_twine        Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY                                  10
-shazanfar        Love how @gjbarton has concrete recommendations for designing RNA-Seq exps. 1: Do at least 6 biological replicates! Yes! #sbrs17 #sbrs2017                  7
-scientist_kate   Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3                           5
-gjbarton         VariantSpark  big data + machine learning.  I really did talk too small.  lovely mix of methods and applications in this meeting.  #sbrs2017                5
-shazanfar        In this session at #sbrs2017 #sbrs17 I'll be speaking about this work on single cell data analysis of neurons https://t.co/GFSrwlvoxl                       3
-gjbarton         Ohhhh!  Technical variation talk!! qPCR is not a gold standard. consensus modelling across different techniques on same sample.  #sbrs2017                  3
-rebecca_poulos   Exciting research at #sbrs17! Ancient DNA, plant genomics, complex genomic rearrangements, and more. Now onto fast forward talks #sbrs2017                  3
-shazanfar        #sbrs17 Gene ORGANizer linking disease genes to organs @lirancarmel https://t.co/Sju8WSDW1a                                                                 3
-shazanfar        #SBRS17 Sydney Bioinformatics Research Symposium program available here https://t.co/z4Vno7yQfv                                                             3
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> screen_name </th>
+   <th style="text-align:left;"> text </th>
+   <th style="text-align:right;"> retweet_count </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> koadman </td>
+   <td style="text-align:left;"> Bioinformatics research as defined by Geoff Barton. Peer reviewed journal publications just one of many outputs… https://t.co/zKZA6yLPPF </td>
+   <td style="text-align:right;"> 23 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nat_twine </td>
+   <td style="text-align:left;"> Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> Love how @gjbarton has concrete recommendations for designing RNA-Seq exps. 1: Do at least 6 biological replicates! Yes! #sbrs17 #sbrs2017 </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientist_kate </td>
+   <td style="text-align:left;"> Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gjbarton </td>
+   <td style="text-align:left;"> VariantSpark  big data + machine learning.  I really did talk too small.  lovely mix of methods and applications in this meeting.  #sbrs2017 </td>
+   <td style="text-align:right;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> In this session at #sbrs2017 #sbrs17 I'll be speaking about this work on single cell data analysis of neurons https://t.co/GFSrwlvoxl </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gjbarton </td>
+   <td style="text-align:left;"> Ohhhh!  Technical variation talk!! qPCR is not a gold standard. consensus modelling across different techniques on same sample.  #sbrs2017 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rebecca_poulos </td>
+   <td style="text-align:left;"> Exciting research at #sbrs17! Ancient DNA, plant genomics, complex genomic rearrangements, and more. Now onto fast forward talks #sbrs2017 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> #sbrs17 Gene ORGANizer linking disease genes to organs @lirancarmel https://t.co/Sju8WSDW1a </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> #SBRS17 Sydney Bioinformatics Research Symposium program available here https://t.co/z4Vno7yQfv </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
 
 # Favourites
 ## Favourite proportion
@@ -71,19 +119,67 @@ shazanfar        #SBRS17 Sydney Bioinformatics Research Symposium program availa
 ![](sbrs17_files/figure-html/favorite-count-1.png)<!-- -->
 
 ## Top favourites
-
-screen_name      text                                                                                                                                            favorite_count
----------------  ---------------------------------------------------------------------------------------------------------------------------------------------  ---------------
-koadman          Bioinformatics research as defined by Geoff Barton. Peer reviewed journal publications just one of many outputs… https://t.co/zKZA6yLPPF                    31
-shazanfar        Love how @gjbarton has concrete recommendations for designing RNA-Seq exps. 1: Do at least 6 biological replicates! Yes! #sbrs17 #sbrs2017                  10
-nat_twine        Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY                                   10
-gjbarton         I think the strong biology-led talks at a bioinformatics meeting just shows how bioinformatics is integral to modern biology.  #sbrs2017                     9
-jasonwwong       Great talk by @rebecca_poulos on patterns of genome-wide CpG methylation mutations in cancer #sbrs2017 Paper here:… https://t.co/fKFJjsElR8                  8
-statsgen         Over 50 abstracts submitted, only 8 talks - one of them by @shazanfar ! Nice job @shazanfar ! #sbrs2017 https://t.co/H8DiQhCMDw                              7
-scientist_kate   Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3                            7
-shazanfar        In this session at #sbrs2017 #sbrs17 I'll be speaking about this work on single cell data analysis of neurons https://t.co/GFSrwlvoxl                        7
-rebecca_poulos   Exciting research at #sbrs17! Ancient DNA, plant genomics, complex genomic rearrangements, and more. Now onto fast forward talks #sbrs2017                   7
-shazanfar        GB: @gjbarton showing the interplay between analysis, techniques and applications occurring within bioinformatics r… https://t.co/QcJsVLlNrt                 6
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> screen_name </th>
+   <th style="text-align:left;"> text </th>
+   <th style="text-align:right;"> favorite_count </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> koadman </td>
+   <td style="text-align:left;"> Bioinformatics research as defined by Geoff Barton. Peer reviewed journal publications just one of many outputs… https://t.co/zKZA6yLPPF </td>
+   <td style="text-align:right;"> 31 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> Love how @gjbarton has concrete recommendations for designing RNA-Seq exps. 1: Do at least 6 biological replicates! Yes! #sbrs17 #sbrs2017 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nat_twine </td>
+   <td style="text-align:left;"> Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> gjbarton </td>
+   <td style="text-align:left;"> I think the strong biology-led talks at a bioinformatics meeting just shows how bioinformatics is integral to modern biology.  #sbrs2017 </td>
+   <td style="text-align:right;"> 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> jasonwwong </td>
+   <td style="text-align:left;"> Great talk by @rebecca_poulos on patterns of genome-wide CpG methylation mutations in cancer #sbrs2017 Paper here:… https://t.co/fKFJjsElR8 </td>
+   <td style="text-align:right;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> statsgen </td>
+   <td style="text-align:left;"> Over 50 abstracts submitted, only 8 talks - one of them by @shazanfar ! Nice job @shazanfar ! #sbrs2017 https://t.co/H8DiQhCMDw </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientist_kate </td>
+   <td style="text-align:left;"> Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3 </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> In this session at #sbrs2017 #sbrs17 I'll be speaking about this work on single cell data analysis of neurons https://t.co/GFSrwlvoxl </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> rebecca_poulos </td>
+   <td style="text-align:left;"> Exciting research at #sbrs17! Ancient DNA, plant genomics, complex genomic rearrangements, and more. Now onto fast forward talks #sbrs2017 </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> GB: @gjbarton showing the interplay between analysis, techniques and applications occurring within bioinformatics r… https://t.co/QcJsVLlNrt </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+</tbody>
+</table>
 
 # Quotes
 ## Quote proportion
@@ -93,28 +189,84 @@ shazanfar        GB: @gjbarton showing the interplay between analysis, technique
 ![](sbrs17_files/figure-html/quotes-count-1.png)<!-- -->
 
 ## Top quotes
-
-screen_name   text                                                                                                                                         quote_count
-------------  ------------------------------------------------------------------------------------------------------------------------------------------  ------------
-LouCaruana    Scientists and #biotech experts from @GarvanInstitute are seeking to tackle major diseases like the ebola virus.… https://t.co/4pGvQEc8JH              3
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> screen_name </th>
+   <th style="text-align:left;"> text </th>
+   <th style="text-align:right;"> quote_count </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> LouCaruana </td>
+   <td style="text-align:left;"> Scientists and #biotech experts from @GarvanInstitute are seeking to tackle major diseases like the ebola virus.… https://t.co/4pGvQEc8JH </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+</tbody>
+</table>
 
 # Media
 ## Media count
 ![](sbrs17_files/figure-html/has-media-1.png)<!-- -->
 
 ## Top media
-
-screen_name      text                                                                                                                                        favorite_count
----------------  -----------------------------------------------------------------------------------------------------------------------------------------  ---------------
-nat_twine        Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY                               10
-statsgen         Over 50 abstracts submitted, only 8 talks - one of them by @shazanfar ! Nice job @shazanfar ! #sbrs2017 https://t.co/H8DiQhCMDw                          7
-scientist_kate   Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3                        7
-scientist_kate   Katherine Jackson from @GarvanInstitute at #SBRS2017 https://t.co/axDmupxoh3                                                                             3
-hydra_hamster    Optical mapping for detecting complex genomic rearrangement - now that's cool! Eva Chan @GarvanInstitute #SBRS17 https://t.co/m32RDq3WrV                 3
-hydra_hamster    Impressive list of software @gjbarton is involved in bringing to the rest of us! #sbrs17 https://t.co/exsnWqw51M                                         2
-shazanfar        #sbrs17 DMRs between ancient neanderthal and modern human maps to face + throat + vocal cord organs @lirancarmel https://t.co/KpysFCGxFt                 2
-scientist_kate   Sydney Bioinformatics Research Symposium is kicking off with Dr Liran Carmel on ancient Epigenomes #SBRS2017 https://t.co/cdApgglOJn                     2
-nat_twine        @gjbarton closing up #sbrs2017 meeting with his work at Dundee university https://t.co/Yk7iY76vFS                                                        1
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;"> screen_name </th>
+   <th style="text-align:left;"> text </th>
+   <th style="text-align:right;"> favorite_count </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> nat_twine </td>
+   <td style="text-align:left;"> Fast forward presentations at #sbrs2017 #BigData #machinelearning applications for #ALS at #CSIRO https://t.co/vTMfG94xmY </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> statsgen </td>
+   <td style="text-align:left;"> Over 50 abstracts submitted, only 8 talks - one of them by @shazanfar ! Nice job @shazanfar ! #sbrs2017 https://t.co/H8DiQhCMDw </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientist_kate </td>
+   <td style="text-align:left;"> Geoff Barton - Closing invited lecture: lessons from a 48 replicate RNAseq experiment #sbrs2017 @gjbarton https://t.co/Sznnpj1iZ3 </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientist_kate </td>
+   <td style="text-align:left;"> Katherine Jackson from @GarvanInstitute at #SBRS2017 https://t.co/axDmupxoh3 </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hydra_hamster </td>
+   <td style="text-align:left;"> Optical mapping for detecting complex genomic rearrangement - now that's cool! Eva Chan @GarvanInstitute #SBRS17 https://t.co/m32RDq3WrV </td>
+   <td style="text-align:right;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> hydra_hamster </td>
+   <td style="text-align:left;"> Impressive list of software @gjbarton is involved in bringing to the rest of us! #sbrs17 https://t.co/exsnWqw51M </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> shazanfar </td>
+   <td style="text-align:left;"> #sbrs17 DMRs between ancient neanderthal and modern human maps to face + throat + vocal cord organs @lirancarmel https://t.co/KpysFCGxFt </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> scientist_kate </td>
+   <td style="text-align:left;"> Sydney Bioinformatics Research Symposium is kicking off with Dr Liran Carmel on ancient Epigenomes #SBRS2017 https://t.co/cdApgglOJn </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> nat_twine </td>
+   <td style="text-align:left;"> @gjbarton closing up #sbrs2017 meeting with his work at Dundee university https://t.co/Yk7iY76vFS </td>
+   <td style="text-align:right;"> 1 </td>
+  </tr>
+</tbody>
+</table>
 
 ### Most liked media image
 ![](http://pbs.twimg.com/media/DCLHMy4VYAAI7DD.jpg)
