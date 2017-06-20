@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="v_label" for="node" attr.name="label" attr.type="string"/>
+  <key id="v_id" for="node" attr.name="id" attr.type="string"/>
+  <graph id="G" edgedefault="directed">
+    <node id="n0">
+      <data key="v_name">shazanfar</data>
+      <data key="v_label">shazanfar</data>
+      <data key="v_id">shazanfar</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">rebecca_poulos</data>
+      <data key="v_label">rebecca_poulos</data>
+      <data key="v_id">rebecca_poulos</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">nat_twine</data>
+      <data key="v_label">nat_twine</data>
+      <data key="v_id">nat_twine</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">scientist_kate</data>
+      <data key="v_label">scientist_kate</data>
+      <data key="v_id">scientist_kate</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">combine_au</data>
+      <data key="v_label">combine_au</data>
+      <data key="v_id">combine_au</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">hydra_hamster</data>
+      <data key="v_label">hydra_hamster</data>
+      <data key="v_id">hydra_hamster</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">BelindaPhipson</data>
+      <data key="v_label">BelindaPhipson</data>
+      <data key="v_id">BelindaPhipson</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">gjbarton</data>
+      <data key="v_label">gjbarton</data>
+      <data key="v_id">gjbarton</data>
+    </node>
+    <node id="n8">
+      <data key="v_name">lirancarmel</data>
+      <data key="v_label">lirancarmel</data>
+      <data key="v_id">lirancarmel</data>
+    </node>
+    <edge source="n0" target="n6">
+    </edge>
+    <edge source="n1" target="n7">
+    </edge>
+    <edge source="n2" target="n7">
+    </edge>
+    <edge source="n3" target="n7">
+    </edge>
+    <edge source="n4" target="n7">
+    </edge>
+    <edge source="n5" target="n8">
+    </edge>
+  </graph>
+</graphml>
