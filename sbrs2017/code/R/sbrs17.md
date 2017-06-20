@@ -5,7 +5,7 @@ Neil Saunders
 
 
 # Introduction
-An analysis of tweets from the Sydney Bioinformatics Research Symposium 2017. 215 were collected using the `rtweet` R package:
+An analysis of tweets from the Sydney Bioinformatics Research Symposium 2017. 215 tweets were collected using the `rtweet` R package:
 
 
 ```r
