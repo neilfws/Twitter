@@ -251,9 +251,7 @@ sbrs17 %>%
   filter(is_retweet == FALSE) %>% 
   unnest_tokens(word, text) %>% 
   select(word) %>% 
-  filter(!word %in% c("sbrs17", "sbrs2017", "sbrs"), 
-         word != "https", 
-         word != "t.co", 
+  filter(!word %in% c("sbrs17", "sbrs2017", "sbrs", "amp", "https", "t.co"), 
          !word %in% tolower(sbrs17$screen_name), 
          !grepl("^\\d+$", word)) %>% 
   anti_join(stop_words) %>% 
