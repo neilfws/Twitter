@@ -47,13 +47,14 @@ vizbi17 %>%
 ```
 
 ## Tweets by day and time
+Filtered for dates between June 13-17.
 ```{r tweets-by-day-hour}
 vizbi17 %>% 
   mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>% 
   group_by(date = as_date(datetime), hour) %>% 
   summarise(count = n()) %>% 
-#  filter(date > as_date("2017-02-11"), date < as_date("2017-02-15")) %>% 
-  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(date ~ .) + 
+  filter(date >= as_date("2017-06-13"), date <= as_date("2017-06-17")) %>% 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(strftime(date, "%b %d") ~ .) + 
     labs(x = "Hour", y = "Tweets", title = "#vizbi 2017 tweets by time of day") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```

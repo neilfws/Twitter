@@ -18,6 +18,7 @@ vizbi17 <- search_tweets("vizbi", 2000)
 ![](vizbi17_files/figure-html/tweets-by-day-1.png)<!-- -->
 
 ## Tweets by day and time
+Filtered for dates between June 13-17.
 ![](vizbi17_files/figure-html/tweets-by-day-hour-1.png)<!-- -->
 
 # Users

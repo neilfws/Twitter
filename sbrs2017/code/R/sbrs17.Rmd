@@ -53,7 +53,7 @@ sbrs17 %>%
   group_by(date = as_date(datetime), hour) %>% 
   summarise(count = n()) %>% 
 #  filter(date > as_date("2017-02-11"), date < as_date("2017-02-15")) %>% 
-  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(date ~ .) + 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(strftime(date, "%b %d") ~ .) + 
     labs(x = "Hour", y = "Tweets", title = "#sbrs 2017 tweets by time of day") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
