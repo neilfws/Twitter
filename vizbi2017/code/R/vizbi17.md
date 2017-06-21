@@ -5,12 +5,12 @@ Neil Saunders
 
 
 # Introduction
-An analysis of tweets from the VIZBI 2017 meeting. 785 tweets were collected using the `rtweet` R package:
+An analysis of tweets from the VIZBI 2017 meeting. 889 tweets were collected using the `rtweet` R package:
 
 
 ```r
 library(rtweet)
-vizbi17 <- search_tweets("#vizbi17 OR #vizbi2017 OR #vizbi", 1000)
+vizbi17 <- search_tweets("vizbi", 2000)
 ```
 
 # Timeline
@@ -73,12 +73,7 @@ Better to view the original PNG file in the `data` directory.
   <tr>
    <td style="text-align:left;"> frostickle </td>
    <td style="text-align:left;"> Using virtual reality for medical research and clinical applications!!! #VIZBI https://t.co/iXX4WNF8cF </td>
-   <td style="text-align:right;"> 16 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> GenomicsIo </td>
-   <td style="text-align:left;"> Very impressive data visualisation tool: MetroNome by @nygenome #VizBi17 https://t.co/tRBZBioKDI </td>
-   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 19 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> EMBLAustralia </td>
@@ -94,7 +89,7 @@ Better to view the original PNG file in the `data` directory.
   <tr>
    <td style="text-align:left;"> davisjmcc </td>
    <td style="text-align:left;"> Slides from my #vizbi talk on visualising single-cell transcriptomes: https://t.co/z70qjGglKc cc @tamaramunzner @arnicas </td>
-   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tamaramunzner </td>
@@ -109,6 +104,11 @@ Better to view the original PNG file in the `data` directory.
   <tr>
    <td style="text-align:left;"> EMBLAustralia </td>
    <td style="text-align:left;"> Recognise this molecule type? Tomorrow #VIZBI hears from Jane Richardson, who created the ribbon diagram. #hero… https://t.co/mNS8sKSZMk </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> tamaramunzner </td>
+   <td style="text-align:left;"> #vizbi Keim Sentiment highlighting over time of front pages, interesting evolution! https://t.co/vpia10abkT </td>
    <td style="text-align:right;"> 6 </td>
   </tr>
 </tbody>
@@ -134,12 +134,17 @@ Better to view the original PNG file in the `data` directory.
   <tr>
    <td style="text-align:left;"> gjbarton </td>
    <td style="text-align:left;"> Jane Richardson autographs a giant print of one of her early ribbon drawings.  #vizbi #Vizbi2017 https://t.co/WK8udnGrUP </td>
-   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 82 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> asrmoin </td>
    <td style="text-align:left;"> Put my #VIZBI talk about Web Molecular Graphics online https://t.co/51412rqrZK https://t.co/Uwzo32oASR </td>
-   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> frostickle </td>
+   <td style="text-align:left;"> Using virtual reality for medical research and clinical applications!!! #VIZBI https://t.co/iXX4WNF8cF </td>
+   <td style="text-align:right;"> 26 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tamaramunzner </td>
@@ -155,11 +160,6 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:left;"> EMBLAustralia </td>
    <td style="text-align:left;"> Jane Richardson just told #VIZBI that she isn't an artist, in defiance of the evidence. #WomenInSTEM #pioneer https://t.co/tKkXVrEsAA </td>
    <td style="text-align:right;"> 23 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> frostickle </td>
-   <td style="text-align:left;"> Using virtual reality for medical research and clinical applications!!! #VIZBI https://t.co/iXX4WNF8cF </td>
-   <td style="text-align:right;"> 22 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tamaramunzner </td>
@@ -203,6 +203,11 @@ Better to view the original PNG file in the `data` directory.
  </thead>
 <tbody>
   <tr>
+   <td style="text-align:left;"> davisjmcc </td>
+   <td style="text-align:left;"> I spoke about scmap and the Hemberg Lab's efforts to map scRNAseq data to reference cell types on Wed. Check out pr… https://t.co/0ri7vo6OoS </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> rowlandm </td>
    <td style="text-align:left;"> Great talk from @tamaramunzner - spirit of agile and ITIL with all the best bits kept and other processes added on!… https://t.co/RILKERftWd </td>
    <td style="text-align:right;"> 3 </td>
@@ -232,22 +237,22 @@ Better to view the original PNG file in the `data` directory.
   <tr>
    <td style="text-align:left;"> gjbarton </td>
    <td style="text-align:left;"> Jane Richardson autographs a giant print of one of her early ribbon drawings.  #vizbi #Vizbi2017 https://t.co/WK8udnGrUP </td>
-   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 82 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> asrmoin </td>
    <td style="text-align:left;"> Put my #VIZBI talk about Web Molecular Graphics online https://t.co/51412rqrZK https://t.co/Uwzo32oASR </td>
-   <td style="text-align:right;"> 53 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> frostickle </td>
+   <td style="text-align:left;"> Using virtual reality for medical research and clinical applications!!! #VIZBI https://t.co/iXX4WNF8cF </td>
+   <td style="text-align:right;"> 26 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> EMBLAustralia </td>
    <td style="text-align:left;"> Jane Richardson just told #VIZBI that she isn't an artist, in defiance of the evidence. #WomenInSTEM #pioneer https://t.co/tKkXVrEsAA </td>
    <td style="text-align:right;"> 23 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> frostickle </td>
-   <td style="text-align:left;"> Using virtual reality for medical research and clinical applications!!! #VIZBI https://t.co/iXX4WNF8cF </td>
-   <td style="text-align:right;"> 22 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> tamaramunzner </td>
@@ -265,11 +270,6 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:right;"> 10 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> jessicaxhu </td>
-   <td style="text-align:left;"> Lars Juhl Jensen on network visualization at #VIZBI2017 @NNFCPR https://t.co/w0ttxLCTjx </td>
-   <td style="text-align:right;"> 9 </td>
-  </tr>
-  <tr>
    <td style="text-align:left;"> tamaramunzner </td>
    <td style="text-align:left;"> #vizbi Wed kickoff keynote from Daniel Keim: Abilities of humans and computers https://t.co/p9gOjaG0ZJ </td>
    <td style="text-align:right;"> 8 </td>
@@ -279,6 +279,13 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:left;"> Virtual Reality: The Challenges of Visualising Invisible Worlds by @johninnerpixel from @UNSW 
 
 #VIZBI https://t.co/TNdRq9x72X </td>
+   <td style="text-align:right;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> vizbi </td>
+   <td style="text-align:left;"> Drew Berry from @WEHI_research giving today's keynote on Communicating Science Visually
+
+#VIZBI #DataViz https://t.co/veujQcDHa1 </td>
    <td style="text-align:right;"> 7 </td>
   </tr>
 </tbody>

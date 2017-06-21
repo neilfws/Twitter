@@ -31,7 +31,7 @@ An analysis of tweets from the VIZBI 2017 meeting. `r nrow(vizbi17)` tweets were
 
 ```{r search-twitter, eval=FALSE, echo=TRUE}
 library(rtweet)
-vizbi17 <- search_tweets("#vizbi17 OR #vizbi2017 OR #vizbi", 1000)
+vizbi17 <- search_tweets("vizbi", 2000)
 ```
 
 # Timeline
