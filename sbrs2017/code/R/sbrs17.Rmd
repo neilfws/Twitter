@@ -7,6 +7,7 @@ output:
     keep_md: yes
     number_sections: yes
     toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
