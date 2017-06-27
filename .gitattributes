@@ -1,5 +1,5 @@
 *.Rmd linguist-language=R
 *.Rnw linguist-language=R
 lornegenome2017/code/R/*.html linguist-documentation
-sbrs17/code/R/*.html linguist-documentation
-vizbi17/code/R/*.html linguist-documentation
+sbrs2017/code/R/*.html linguist-documentation
+vizbi2017/code/R/*.html linguist-documentation
