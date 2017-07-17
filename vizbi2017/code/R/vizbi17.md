@@ -30,7 +30,7 @@ Filtered for dates between June 13-17.
 
 # Networks
 ## Replies
-The "replies network", composed from users who reply directly to one another, was very small for SBRS 17 and was not analysed further.
+The "replies network", composed from users who reply directly to one another, was very small for VIZBI 17 and was not analysed further.
 
 
 
