@@ -1,0 +1,267 @@
+---
+title: "Twitter Coverage of the Bioinformatics Open Source Conference 2017"
+author: "Neil Saunders"
+date: "`r Sys.time()`"
+output: 
+  html_document: 
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(rtweet)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(knitr)
+library(wordcloud)
+library(tidytext)
+library(igraph)
+
+theme_set(theme_light())
+bosc17 <- readRDS("../../data/bosc17.rds")
+```
+
+# Introduction
+An analysis of tweets from the VIZBI 2017 meeting. `r nrow(bosc17)` tweets were collected using the `rtweet` R package:
+
+```{r search-twitter, eval=FALSE, echo=TRUE}
+library(rtweet)
+bosc17 <- search_tweets("#bosc2017", 5000)
+```
+
+# Timeline
+## Tweets by day
+```{r tweets-by-day}
+bosc17 %>% 
+  mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>% 
+  group_by(date) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
+    labs(x = "Date", y = "Tweets", title = "#bosc2017 tweets per day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Tweets by day and time
+```{r tweets-by-day-hour}
+bosc17 %>% 
+  mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>% 
+  group_by(date = as_date(datetime), hour) %>% 
+  summarise(count = n()) %>% 
+#  filter(date >= as_date("2017-06-13"), date <= as_date("2017-06-17")) %>% 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(strftime(date, "%b %d") ~ .) + 
+    labs(x = "Hour", y = "Tweets", title = "#bosc2017 tweets by time of day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Users
+## Top tweeters
+```{r tweets-top-users}
+bosc17 %>% 
+  group_by(screen_name) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 20) %>% 
+  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Screen Name", y = "Tweets", title = "#bosc2017 tweets by user", subtitle = "users with >= 20 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Sources
+```{r tweets-top-sources}
+bosc17 %>% 
+  group_by(source) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 2) %>% 
+  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Source", y = "Tweets", title = "#bosc2017 tweets by source", subtitle = "sources with > 1 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Networks
+## Replies
+The "replies network", composed from users who reply directly to one another.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r reply-network, eval=FALSE}
+bosc17_replies <- bosc17 %>% 
+  filter(!is.na(in_reply_to_status_screen_name)) %>% 
+  select(screen_name, in_reply_to_status_screen_name) %>% 
+  graph.data.frame(directed = TRUE)
+
+V(bosc17_replies)$label <- V(bosc17_replies)$name
+V(bosc17_replies)$id    <- V(bosc17_replies)$name
+
+write_graph(bosc17_replies, file = "../../data/bosc17_replies.graphml", format = "graphml")
+```
+
+![](../../data/bosc17_replies.png)
+
+## Mentions
+The "mentions network", where users mention other users in their tweets.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r mentions-network, eval=FALSE}
+bosc17_mentions <- bosc17 %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  select(screen_name, mentions_screen_name) %>% 
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
+  unnest(mentions_screen_name) %>% 
+  graph.data.frame()
+
+V(bosc17_mentions)$label <- V(bosc17_mentions)$name
+V(bosc17_mentions)$id    <- V(bosc17_mentions)$name
+
+write_graph(bosc17_mentions, file = "../../data/bosc17_mentions.graphml", format = "graphml")
+```
+
+![](../../data/bosc17_mentions.png)
+
+# Retweets
+## Retweet proportion
+```{r is-retweet}
+bosc17 %>% 
+  group_by(is_retweet) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is retweet", y = "Tweets", title = "#bosc2017 tweets by retweet status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Retweet count
+```{r retweet-count}
+bosc17 %>% 
+  ggplot(aes(retweet_count)) + geom_histogram(bins = max(bosc17$retweet_count), fill = "skyblue3") +
+    labs(x = "Retweet count", y = "Tweets", title = "#bosc2017 distribution of retweets per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top retweets
+```{r most-retweeted}
+bosc17 %>% 
+  filter(is.na(retweet_status_id)) %>% 
+  select(screen_name, text, retweet_count) %>% 
+  arrange(desc(retweet_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Favourites
+## Favourite proportion
+```{r has-favorite}
+bosc17 %>% 
+  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>% 
+  count(has_favorite) %>%
+  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has favorite", y = "Tweets", title = "#bosc2017 tweets by favorited status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Favourite count
+```{r favorite-count}
+bosc17 %>% 
+  ggplot(aes(favorite_count)) + geom_histogram(bins = max(bosc17$favorite_count), fill = "skyblue3") +
+    labs(x = "Favorite count", y = "Tweets", title = "#bosc2017 distribution of favorites per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top favourites
+```{r most-favorited}
+bosc17 %>% 
+  select(screen_name, text, favorite_count) %>% 
+  arrange(desc(favorite_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Quotes
+## Quote proportion
+```{r is-quote}
+bosc17 %>% 
+  group_by(is_quote_status) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is quote", y = "Tweets", title = "#bosc2017 tweets by quote status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Quote count
+```{r quotes-count}
+bosc17 %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
+    labs(x = "Quote count", y = "Tweets", title = "#bosc2017 distribution of quotes per tweet") + 
+    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top quotes
+```{r most-quoted}
+bosc17 %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  filter(n > 1) %>% 
+  arrange(desc(n)) %>% 
+#  slice(1:10) %>% 
+  inner_join(select(bosc17, screen_name, quote_status_id, is_retweet, text)) %>% 
+  filter(is_retweet == FALSE) %>% 
+  select(screen_name, text, quote_count = n) %>%
+  distinct() %>%
+  slice(1:10) %>%
+  kable(format = "html")
+```
+
+# Media
+## Media count
+```{r has-media}
+bosc17 %>% 
+  mutate(has_media = !is.na(media_id)) %>% 
+  group_by(has_media) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has media", y = "Tweets", title = "#bosc2017 tweets by media status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top media
+```{r liked-media}
+bosc17_media <- bosc17 %>% 
+  filter(!is.na(media_id)) %>% 
+  arrange(desc(favorite_count)) %>%
+  filter(favorite_count > 0)
+
+bosc17_media %>%
+  slice(1:10) %>% 
+  select(screen_name, text, favorite_count) %>%
+  kable(format = "html")
+```
+
+### Most liked media image
+![](`r bosc17_media[1, "media_url"]`)
+
+# Tweet text
+The 100 words used 3 or more times.
+
+```{r count-words}
+data("stop_words")
+
+bosc17 %>% 
+  filter(is_retweet == FALSE) %>% 
+  unnest_tokens(word, text) %>% 
+  select(word) %>% 
+  filter(!word %in% c("bosc17", "bosc2017", "bosc", "https", "ismbeccb", "t.co", "amp"),
+         !word %in% tolower(bosc17$screen_name), 
+         !grepl("^\\d+$", word)) %>% 
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  with(wordcloud(word, n, max.words = 100, min.freq = 3, colors = brewer.pal(8, "Accent")))
+```
+
