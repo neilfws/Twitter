@@ -47,12 +47,13 @@ bosc17 %>%
 ```
 
 ## Tweets by day and time
+Filtered for dates July 21-24, Prague time.
 ```{r tweets-by-day-hour}
 bosc17 %>% 
-  mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>% 
+  mutate(datetime = as_datetime(created_at, tz = "Europe/Prague"), hour = hour(datetime)) %>% 
   group_by(date = as_date(datetime), hour) %>% 
   summarise(count = n()) %>% 
-#  filter(date >= as_date("2017-06-13"), date <= as_date("2017-06-17")) %>% 
+  filter(date >= as_date("2017-07-21"), date <= as_date("2017-07-24")) %>% 
   ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(strftime(date, "%b %d") ~ .) + 
     labs(x = "Hour", y = "Tweets", title = "#bosc2017 tweets by time of day") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
