@@ -27,7 +27,7 @@ bosc17 <- readRDS("../../data/bosc17.rds")
 ```
 
 # Introduction
-An analysis of tweets from the VIZBI 2017 meeting. `r nrow(bosc17)` tweets were collected using the `rtweet` R package:
+An analysis of tweets from the BOSC 2017 meeting. `r nrow(bosc17)` tweets were collected using the `rtweet` R package:
 
 ```{r search-twitter, eval=FALSE, echo=TRUE}
 library(rtweet)
