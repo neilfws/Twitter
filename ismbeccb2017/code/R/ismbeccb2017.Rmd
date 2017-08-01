@@ -250,7 +250,7 @@ ismbeccb2017_media %>%
 ![](`r ismbeccb2017_media[1, "media_url"]`)
 
 # Tweet text
-The 100 words used 3 or more times.
+The 100 words used 3 or more times. Hashtags for satellite meetings removed.
 
 ```{r count-words}
 data("stop_words")
@@ -260,7 +260,9 @@ ismbeccb2017 %>%
   unnest_tokens(word, text) %>% 
   select(word) %>% 
   filter(!word %in% c("ismbeccb2017", "bosc2017", "bosc", "https", "ismbeccb", 
-                      "ismbeccb17", "ismb17", "ismb2017", "eccb2017", "eccb17", "t.co", "amp"),
+                      "ismbeccb17", "ismb17", "ismb2017", "eccb2017", "eccb17",
+                      "hitseq2017", "bioont17", "misb17", "scs17", "rnasig17", 
+                      "3dsig", "mlsb17", "functionsig", "ismb", "eccb", "t.co", "amp"),
          !word %in% tolower(ismbeccb2017$screen_name), 
          !grepl("^\\d+$", word)) %>% 
   anti_join(stop_words) %>% 

@@ -331,7 +331,7 @@ Thanks @m4rkrobinson @biocrusoe @CaroleAnneGoble!… https://t.co/M6Ypg5UAwZ </t
 ![](http://pbs.twimg.com/media/DFPnTI-XYAEQma1.jpg)
 
 # Tweet text
-The 100 words used 3 or more times.
+The 100 words used 3 or more times. Hashtags for satellite meetings removed.
 
 ![](ismbeccb2017_files/figure-html/count-words-1.png)<!-- -->
 
