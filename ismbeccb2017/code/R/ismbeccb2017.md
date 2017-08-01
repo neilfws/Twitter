@@ -13,6 +13,9 @@ library(rtweet)
 ismbeccb2017 <- search_tweets("#ismb2017 OR #ismb17 OR #eccb2017 OR #eccb17 OR #ismbeccb OR #ismbeccb2017 OR #ismbeccb17", 10000)
 ```
 
+## Search all the hashtags!
+![](ismbeccb2017_files/figure-html/hashtags-1.png)<!-- -->
+
 # Timeline
 ## Tweets by day
 ![](ismbeccb2017_files/figure-html/tweets-by-day-1.png)<!-- -->

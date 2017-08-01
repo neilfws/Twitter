@@ -34,6 +34,22 @@ library(rtweet)
 ismbeccb2017 <- search_tweets("#ismb2017 OR #ismb17 OR #eccb2017 OR #eccb17 OR #ismbeccb OR #ismbeccb2017 OR #ismbeccb17", 10000)
 ```
 
+## Search all the hashtags!
+```{r hashtags}
+ismbeccb2017 %>% 
+  filter(is_retweet == FALSE) %>% 
+  unnest_tokens(tags, hashtags) %>% 
+  filter(!is.na(tags)) %>% 
+  count(tags) %>% 
+  arrange(desc(n)) %>% 
+  slice(1:20) %>% 
+  ggplot(aes(reorder(tags, n), n)) + 
+    geom_col(fill = "skyblue3") + 
+    coord_flip() + 
+    labs(x = "hashtag", y = "count", title = "Hashtags used during ISMB/ECCB 2017", 
+         subtitle = "Top 20 hashtags in non-retweets")
+```
+
 # Timeline
 ## Tweets by day
 ```{r tweets-by-day}
