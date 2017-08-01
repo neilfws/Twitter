@@ -30,22 +30,22 @@ Filtered for dates July 21-26, Prague time.
 
 # Networks
 ## Replies
-The "replies network", composed from users who reply directly to one another.
+The "replies network", composed from users who reply directly to one another. Filtered for k-core >= 4 and coloured by page rank.
 
 Better to view the original PNG file in the `data` directory.
 
 
 
-<!--[](../../data/ismbeccb2017_replies.png)-->
+![](../../data/ismbeccb2017_replies.png)
 
 ## Mentions
-The "mentions network", where users mention other users in their tweets.
+The "mentions network", where users mention other users in their tweets. Filtered for k-core >= 4 and coloured by modularity class.
 
 Better to view the original PNG file in the `data` directory.
 
 
 
-<!--[](../../data/ismbeccb2017_mentions.png)-->
+![](../../data/ismbeccb2017_mentions.png)
 
 # Retweets
 ## Retweet proportion
