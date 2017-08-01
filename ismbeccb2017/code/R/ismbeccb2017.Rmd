@@ -1,0 +1,270 @@
+---
+title: "Twitter Coverage of the ISMB/ECCB Conference 2017"
+author: "Neil Saunders"
+date: "`r Sys.time()`"
+output: 
+  html_document: 
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(rtweet)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(lubridate)
+library(knitr)
+library(wordcloud)
+library(tidytext)
+library(igraph)
+
+theme_set(theme_light())
+ismbeccb2017 <- readRDS("../../data/ismbeccb2017.rds")
+```
+
+# Introduction
+An analysis of tweets from the ISMB/ECCB 2017 meeting. `r nrow(ismbeccb2017)` tweets were collected using the `rtweet` R package:
+
+```{r search-twitter, eval=FALSE, echo=TRUE}
+library(rtweet)
+ismbeccb2017 <- search_tweets("#ismb2017 OR #ismb17 OR #eccb2017 OR #eccb17 OR #ismbeccb OR #ismbeccb2017 OR #ismbeccb17", 10000)
+```
+
+# Timeline
+## Tweets by day
+```{r tweets-by-day}
+ismbeccb2017 %>% 
+  mutate(date = as_date(created_at, tz = "Europe/Prague")) %>% 
+  group_by(date) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
+    labs(x = "Date", y = "Tweets", title = "#ismbeccb2017 tweets per day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Tweets by day and time
+Filtered for dates July 21-26, Prague time.
+```{r tweets-by-day-hour}
+ismbeccb2017 %>% 
+  mutate(datetime = as_datetime(created_at, tz = "Europe/Prague"), hour = hour(datetime)) %>% 
+  group_by(date = as_date(datetime), hour) %>% 
+  summarise(count = n()) %>% 
+  filter(date >= as_date("2017-07-21"), date <= as_date("2017-07-26")) %>% 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(strftime(date, "%b %d") ~ .) + 
+    labs(x = "Hour", y = "Tweets", title = "#ismbeccb2017 tweets by time of day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Users
+## Top tweeters
+```{r tweets-top-users}
+ismbeccb2017 %>% 
+  group_by(screen_name) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>%
+  slice(1:20) %>% 
+  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Screen Name", y = "Tweets", title = "#ismbeccb2017 tweets by user", subtitle = "top 20 users") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Sources
+```{r tweets-top-sources}
+ismbeccb2017 %>% 
+  group_by(source) %>% 
+  summarise(count = n()) %>% 
+  filter(count >= 5) %>% 
+  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Source", y = "Tweets", title = "#ismbeccb2017 tweets by source", subtitle = "sources with >= 5 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Networks
+## Replies
+The "replies network", composed from users who reply directly to one another.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r reply-network, eval=FALSE}
+ismbeccb2017_replies <- ismbeccb2017 %>% 
+  filter(!is.na(in_reply_to_status_screen_name)) %>% 
+  select(screen_name, in_reply_to_status_screen_name) %>% 
+  graph.data.frame(directed = TRUE)
+
+V(ismbeccb2017_replies)$label <- V(ismbeccb2017_replies)$name
+V(ismbeccb2017_replies)$id    <- V(ismbeccb2017_replies)$name
+
+write_graph(ismbeccb2017_replies, file = "../../data/ismbeccb2017_replies.graphml", format = "graphml")
+```
+
+<!--[](../../data/ismbeccb2017_replies.png)-->
+
+## Mentions
+The "mentions network", where users mention other users in their tweets.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r mentions-network, eval=FALSE}
+ismbeccb2017_mentions <- ismbeccb2017 %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  select(screen_name, mentions_screen_name) %>% 
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
+  unnest(mentions_screen_name) %>% 
+  graph.data.frame()
+
+V(ismbeccb2017_mentions)$label <- V(ismbeccb2017_mentions)$name
+V(ismbeccb2017_mentions)$id    <- V(ismbeccb2017_mentions)$name
+
+write_graph(ismbeccb2017_mentions, file = "../../data/ismbeccb2017_mentions.graphml", format = "graphml")
+```
+
+<!--[](../../data/ismbeccb2017_mentions.png)-->
+
+# Retweets
+## Retweet proportion
+```{r is-retweet}
+ismbeccb2017 %>% 
+  group_by(is_retweet) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is retweet", y = "Tweets", title = "#ismbeccb2017 tweets by retweet status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Retweet count
+```{r retweet-count}
+ismbeccb2017 %>% 
+  ggplot(aes(retweet_count)) + geom_histogram(bins = max(ismbeccb2017$retweet_count), fill = "skyblue3") +
+    labs(x = "Retweet count", y = "Tweets", title = "#ismbeccb2017 distribution of retweets per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top retweets
+```{r most-retweeted}
+ismbeccb2017 %>% 
+  filter(is.na(retweet_status_id)) %>% 
+  select(screen_name, text, retweet_count) %>% 
+  arrange(desc(retweet_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Favourites
+## Favourite proportion
+```{r has-favorite}
+ismbeccb2017 %>% 
+  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>% 
+  count(has_favorite) %>%
+  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has favorite", y = "Tweets", title = "#ismbeccb2017 tweets by favorited status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Favourite count
+```{r favorite-count}
+ismbeccb2017 %>% 
+  ggplot(aes(favorite_count)) + geom_histogram(bins = max(ismbeccb2017$favorite_count), fill = "skyblue3") +
+    labs(x = "Favorite count", y = "Tweets", title = "#ismbeccb2017 distribution of favorites per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top favourites
+```{r most-favorited}
+ismbeccb2017 %>% 
+  select(screen_name, text, favorite_count) %>% 
+  arrange(desc(favorite_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Quotes
+## Quote proportion
+```{r is-quote}
+ismbeccb2017 %>% 
+  group_by(is_quote_status) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is quote", y = "Tweets", title = "#ismbeccb2017 tweets by quote status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Quote count
+```{r quotes-count}
+ismbeccb2017 %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
+    labs(x = "Quote count", y = "Tweets", title = "#ismbeccb2017 distribution of quotes per tweet") + 
+    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top quotes
+```{r most-quoted}
+ismbeccb2017 %>% 
+  filter(!is.na(quote_status_id)) %>% 
+  count(quote_status_id) %>% 
+  filter(n > 1) %>% 
+  arrange(desc(n)) %>% 
+#  slice(1:10) %>% 
+  inner_join(select(ismbeccb2017, screen_name, quote_status_id, is_retweet, text)) %>% 
+  filter(is_retweet == FALSE) %>% 
+  select(screen_name, text, quote_count = n) %>%
+  distinct() %>%
+  slice(1:10) %>%
+  kable(format = "html")
+```
+
+# Media
+## Media count
+```{r has-media}
+ismbeccb2017 %>% 
+  mutate(has_media = !is.na(media_id)) %>% 
+  group_by(has_media) %>% 
+  summarise(count = n()) %>% 
+  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has media", y = "Tweets", title = "#ismbeccb2017 tweets by media status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top media
+```{r liked-media}
+ismbeccb2017_media <- ismbeccb2017 %>% 
+  filter(!is.na(media_id)) %>% 
+  arrange(desc(favorite_count)) %>%
+  filter(favorite_count > 0)
+
+ismbeccb2017_media %>%
+  slice(1:10) %>% 
+  select(screen_name, text, favorite_count) %>%
+  kable(format = "html")
+```
+
+### Most liked media image
+![](`r ismbeccb2017_media[1, "media_url"]`)
+
+# Tweet text
+The 100 words used 3 or more times.
+
+```{r count-words}
+data("stop_words")
+
+ismbeccb2017 %>% 
+  filter(is_retweet == FALSE) %>% 
+  unnest_tokens(word, text) %>% 
+  select(word) %>% 
+  filter(!word %in% c("ismbeccb2017", "bosc2017", "bosc", "https", "ismbeccb", 
+                      "ismbeccb17", "ismb17", "ismb2017", "eccb2017", "eccb17", "t.co", "amp"),
+         !word %in% tolower(ismbeccb2017$screen_name), 
+         !grepl("^\\d+$", word)) %>% 
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  with(wordcloud(word, n, max.words = 100, min.freq = 3, colors = brewer.pal(8, "Accent")))
+```
+
