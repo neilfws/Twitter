@@ -91,11 +91,11 @@ ismbeccb2017 %>%
 ## Sources
 ```{r tweets-top-sources}
 ismbeccb2017 %>% 
-  group_by(source) %>% 
-  summarise(count = n()) %>% 
-  filter(count >= 5) %>% 
-  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
-    labs(x = "Source", y = "Tweets", title = "#ismbeccb2017 tweets by source", subtitle = "sources with >= 5 tweets") + 
+  distinct(screen_name, source) %>%
+  count(source) %>% 
+  filter(n >= 5) %>% 
+  ggplot(aes(reorder(source, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Source", y = "Tweets", title = "#ismbeccb2017 tweets by source", subtitle = "distinct(screen_name, source) with >= 5 tweets") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
