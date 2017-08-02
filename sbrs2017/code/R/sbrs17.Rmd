@@ -39,9 +39,8 @@ sbrs17 <- search_tweets("#sbrs17 OR #sbrs2017", 1000)
 ```{r tweets-by-day}
 sbrs17 %>% 
   mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>% 
-  group_by(date) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
+  count(date) %>% 
+  ggplot(aes(date, n)) + geom_col(fill = "skyblue3") +  
     labs(x = "Date", y = "Tweets", title = "#sbrs 2017 tweets per day") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -62,10 +61,9 @@ sbrs17 %>%
 ## Top tweeters
 ```{r tweets-top-users}
 sbrs17 %>% 
-  group_by(screen_name) %>% 
-  summarise(count = n()) %>% 
-  filter(count >= 2) %>% 
-  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+  count(screen_name) %>% 
+  filter(n >= 2) %>% 
+  ggplot(aes(reorder(screen_name, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
     labs(x = "Screen Name", y = "Tweets", title = "#sbrs 2017 tweets by user", subtitle = "users with > 1 tweets") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -121,9 +119,8 @@ write_graph(sbrs_mentions, file = "sbrs_mentions.graphml", format = "graphml")
 ## Retweet proportion
 ```{r is-retweet}
 sbrs17 %>% 
-  group_by(is_retweet) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
+  count(is_retweet) %>% 
+  ggplot(aes(is_retweet, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Is retweet", y = "Tweets", title = "#sbrs 2017 tweets by retweet status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -180,9 +177,8 @@ sbrs17 %>%
 ## Quote proportion
 ```{r is-quote}
 sbrs17 %>% 
-  group_by(is_quote_status) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
+  count(is_quote_status) %>% 
+  ggplot(aes(is_quote_status, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Is quote", y = "Tweets", title = "#sbrs 2017 tweets by quote status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -219,9 +215,8 @@ sbrs17 %>%
 ```{r has-media}
 sbrs17 %>% 
   mutate(has_media = !is.na(media_id)) %>% 
-  group_by(has_media) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
+  count(has_media) %>% 
+  ggplot(aes(has_media, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Has media", y = "Tweets", title = "#sbrs 2017 tweets by media status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
