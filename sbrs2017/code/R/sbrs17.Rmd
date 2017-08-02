@@ -73,10 +73,10 @@ sbrs17 %>%
 ## Sources
 ```{r tweets-top-sources}
 sbrs17 %>% 
-  group_by(source) %>% 
-  summarise(count = n()) %>% 
-  filter(count >= 2) %>% 
-  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+distinct(screen_name, source) %>%
+  count(source) %>% 
+  filter(n >= 2) %>%
+  ggplot(aes(reorder(source, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
     labs(x = "Source", y = "Tweets", title = "#sbrs 2017 tweets by source", subtitle = "sources with > 1 tweets") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
