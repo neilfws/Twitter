@@ -1,7 +1,7 @@
 Twitter Coverage of the Lorne Genome Conference 2017
 ========================================================
 author: Neil Saunders
-date: 2017-02-16 22:32:48
+date: 2017-08-02 17:11:10
 autosize: true
 
 <style>
@@ -86,9 +86,9 @@ We can define two types of interaction: the "replies" network (users who reply d
 
 
 ```r
-lorne_replies <- lorne %>% 
-  filter(!is.na(in_reply_to_status_screen_name)) %>% 
-  select(screen_name, in_reply_to_status_screen_name) %>% 
+lorne_replies <- lorne %>%
+  filter(!is.na(in_reply_to_status_screen_name)) %>%
+  select(screen_name, in_reply_to_status_screen_name) %>%
   graph.data.frame(directed = TRUE)
 
 V(lorne_replies)$label <- V(lorne_replies)$name
@@ -102,11 +102,11 @@ write_graph(lorne_replies, file = "lorne_replies.graphml", format = "graphml")
 
 
 ```r
-lorne_mentions <- lorne %>% 
-  filter(!is.na(mentions_screen_name)) %>% 
-  select(screen_name, mentions_screen_name) %>% 
-  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
-  unnest(mentions_screen_name) %>% 
+lorne_mentions <- lorne %>%
+  filter(!is.na(mentions_screen_name)) %>%
+  select(screen_name, mentions_screen_name) %>%
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>%
+  unnest(mentions_screen_name) %>%
   graph.data.frame()
 
 V(lorne_mentions)$label <- V(lorne_mentions)$name

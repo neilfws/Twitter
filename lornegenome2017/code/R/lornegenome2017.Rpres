@@ -53,25 +53,25 @@ Peaks of activity during the morning sessions on February 13-14 may correspond t
 </div>
 
 ```{r tweets-by-day}
-lorne %>% 
-  mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>% 
-  group_by(date) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
-    labs(x = "Date", y = "Tweets", title = "#lornegenome 2017 tweets per day") + 
+lorne %>%
+  mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>%
+  group_by(date) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +
+    labs(x = "Date", y = "Tweets", title = "#lornegenome 2017 tweets per day") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
 ***
 
 ```{r tweets-by-day-hour}
-lorne %>% 
-  mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>% 
-  group_by(date = as_date(datetime), hour) %>% 
-  summarise(count = n()) %>% 
-  filter(date > as_date("2017-02-11"), date < as_date("2017-02-15")) %>% 
-  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(date ~ .) + 
-    labs(x = "Hour", y = "Tweets", title = "#lornegenome 2017 tweets by time of day") + 
+lorne %>%
+  mutate(datetime = as_datetime(created_at, tz = "Australia/Melbourne"), hour = hour(datetime)) %>%
+  group_by(date = as_date(datetime), hour) %>%
+  summarise(count = n()) %>%
+  filter(date > as_date("2017-02-11"), date < as_date("2017-02-15")) %>%
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + facet_grid(date ~ .) +
+    labs(x = "Hour", y = "Tweets", title = "#lornegenome 2017 tweets by time of day") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -85,24 +85,24 @@ The iPhone is the device of choice for the genome crowd.
 </div>
 
 ```{r tweets-top-users}
-lorne %>% 
-  group_by(screen_name) %>% 
-  summarise(count = n()) %>% 
-  filter(count >= 10) %>% 
-  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
-    labs(x = "Screen Name", y = "Tweets", title = "#lornegenome 2017 tweets by user", subtitle = "users with >= 10 tweets") + 
+lorne %>%
+  group_by(screen_name) %>%
+  summarise(count = n()) %>%
+  filter(count >= 10) %>%
+  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() +
+    labs(x = "Screen Name", y = "Tweets", title = "#lornegenome 2017 tweets by user", subtitle = "users with >= 10 tweets") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
 ***
 
 ```{r tweets-top-sources}
-lorne %>% 
-  group_by(source) %>% 
-  summarise(count = n()) %>% 
-  filter(count >= 5) %>% 
-  ggplot(aes(reorder(source, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
-    labs(x = "Source", y = "Tweets", title = "#lornegenome 2017 tweets by source", subtitle = "sources with >= 5 tweets") + 
+lorne %>%
+  distinct(screen_name, source) %>%
+  count(source) %>%
+  filter(n >= 5) %>%
+  ggplot(aes(reorder(source, n), n)) + geom_col(fill = "skyblue3") + coord_flip() +
+    labs(x = "Source", y = "Tweets", title = "#lornegenome 2017 tweets by source", subtitle = "sources with >= 5 tweets") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -136,9 +136,9 @@ We can define two types of interaction: the "replies" network (users who reply d
 </div>
 
 ```{r reply-network, echo=TRUE, eval=FALSE}
-lorne_replies <- lorne %>% 
-  filter(!is.na(in_reply_to_status_screen_name)) %>% 
-  select(screen_name, in_reply_to_status_screen_name) %>% 
+lorne_replies <- lorne %>%
+  filter(!is.na(in_reply_to_status_screen_name)) %>%
+  select(screen_name, in_reply_to_status_screen_name) %>%
   graph.data.frame(directed = TRUE)
 
 V(lorne_replies)$label <- V(lorne_replies)$name
@@ -151,11 +151,11 @@ write_graph(lorne_replies, file = "lorne_replies.graphml", format = "graphml")
 ***
 
 ```{r mentions-network, echo=TRUE, eval=FALSE}
-lorne_mentions <- lorne %>% 
-  filter(!is.na(mentions_screen_name)) %>% 
-  select(screen_name, mentions_screen_name) %>% 
-  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
-  unnest(mentions_screen_name) %>% 
+lorne_mentions <- lorne %>%
+  filter(!is.na(mentions_screen_name)) %>%
+  select(screen_name, mentions_screen_name) %>%
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>%
+  unnest(mentions_screen_name) %>%
   graph.data.frame()
 
 V(lorne_mentions)$label <- V(lorne_mentions)$name
@@ -174,20 +174,20 @@ The frequency of retweets per tweet shows a lumpy distribution which is somewhat
 </div>
 
 ```{r is-retweet}
-lorne %>% 
-  group_by(is_retweet) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
-    labs(x = "Is retweet", y = "Tweets", title = "#lornegenome 2017 tweets by retweet status") + 
+lorne %>%
+  group_by(is_retweet) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") +
+    labs(x = "Is retweet", y = "Tweets", title = "#lornegenome 2017 tweets by retweet status") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
 ***
 
 ```{r retweet-count}
-lorne %>% 
+lorne %>%
   ggplot(aes(retweet_count)) + geom_histogram(bins = max(lorne$retweet_count), fill = "skyblue3") +
-    labs(x = "Retweet count", y = "Tweets", title = "#lornegenome 2017 distribution of retweets per tweet") + 
+    labs(x = "Retweet count", y = "Tweets", title = "#lornegenome 2017 distribution of retweets per tweet") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -196,14 +196,14 @@ Top 10 most retweeted: 1-5
 id: top-retweets-1
 
 ```{r most-retweeted}
-lorne_retweets <- lorne %>% 
-  filter(is.na(retweet_status_id)) %>% 
-  select(screen_name, text, retweet_count) %>% 
-  arrange(desc(retweet_count)) %>% 
-  distinct() 
+lorne_retweets <- lorne %>%
+  filter(is.na(retweet_status_id)) %>%
+  select(screen_name, text, retweet_count) %>%
+  arrange(desc(retweet_count)) %>%
+  distinct()
 
-lorne_retweets %>% 
-  slice(1:5) %>% 
+lorne_retweets %>%
+  slice(1:5) %>%
   kable()
 ```
 
@@ -212,8 +212,8 @@ Top 10 most retweeted: 6-10
 id: top-retweets-2
 
 ```{r most-retweeted-2}
-lorne_retweets %>% 
-  slice(6:10) %>% 
+lorne_retweets %>%
+  slice(6:10) %>%
   kable()
 ```
 
@@ -226,20 +226,20 @@ Favorites per tweet follow a more classical long-tailed distribution than retwee
 </div>
 
 ```{r has-favorite}
-lorne %>% 
-  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>% 
+lorne %>%
+  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>%
   count(has_favorite) %>%
-  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") + 
-    labs(x = "Has favorite", y = "Tweets", title = "#lornegenome 2017 tweets by favorited status") + 
+  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") +
+    labs(x = "Has favorite", y = "Tweets", title = "#lornegenome 2017 tweets by favorited status") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
 ***
 
 ```{r favorite-count}
-lorne %>% 
+lorne %>%
   ggplot(aes(favorite_count)) + geom_histogram(bins = max(lorne$favorite_count), fill = "skyblue3") +
-    labs(x = "Favorite count", y = "Tweets", title = "#lornegenome 2017 distribution of favorites per tweet") + 
+    labs(x = "Favorite count", y = "Tweets", title = "#lornegenome 2017 distribution of favorites per tweet") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -248,13 +248,13 @@ Top 10 most favorited: 1-5
 id: top-favorites-1
 
 ```{r most-favorited}
-lorne_favorites <- lorne %>% 
-  select(screen_name, text, favorite_count) %>% 
-  arrange(desc(favorite_count)) %>% 
+lorne_favorites <- lorne %>%
+  select(screen_name, text, favorite_count) %>%
+  arrange(desc(favorite_count)) %>%
   distinct()
 
-lorne_favorites %>% 
-  slice(1:5) %>% 
+lorne_favorites %>%
+  slice(1:5) %>%
   kable()
 ```
 
@@ -263,8 +263,8 @@ Top 10 most favorited: 6-10
 id: top-favorites-2
 
 ```{r most-favorited-2}
-lorne_favorites %>% 
-  slice(6:10) %>% 
+lorne_favorites %>%
+  slice(6:10) %>%
   kable()
 ```
 
@@ -279,23 +279,23 @@ When quoted, tweets are most commonly quoted once. The most-quoted tweet was quo
 </div>
 
 ```{r is-quote}
-lorne %>% 
-  group_by(is_quote_status) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
-    labs(x = "Is quote", y = "Tweets", title = "#lornegenome 2017 tweets by quote status") + 
+lorne %>%
+  group_by(is_quote_status) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") +
+    labs(x = "Is quote", y = "Tweets", title = "#lornegenome 2017 tweets by quote status") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
 ***
 
 ```{r quotes-count}
-lorne %>% 
-  filter(!is.na(quote_status_id)) %>% 
-  count(quote_status_id) %>% 
+lorne %>%
+  filter(!is.na(quote_status_id)) %>%
+  count(quote_status_id) %>%
   ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
-    labs(x = "Quote count", y = "Tweets", title = "#lornegenome 2017 distribution of quotes per tweet") + 
-    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
+    labs(x = "Quote count", y = "Tweets", title = "#lornegenome 2017 distribution of quotes per tweet") +
+    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -304,14 +304,14 @@ Top 10 most quoted: 1-5
 id: top-quotes-1
 
 ```{r most-quoted}
-lorne_quoted <- lorne %>% 
-  filter(!is.na(quote_status_id)) %>% 
-  count(quote_status_id) %>% 
-  filter(n > 1) %>% 
-  arrange(desc(n)) %>% 
-#  slice(1:10) %>% 
-  inner_join(select(lorne, screen_name, quote_status_id, is_retweet, text)) %>% 
-  filter(is_retweet == FALSE) %>% 
+lorne_quoted <- lorne %>%
+  filter(!is.na(quote_status_id)) %>%
+  count(quote_status_id) %>%
+  filter(n > 1) %>%
+  arrange(desc(n)) %>%
+#  slice(1:10) %>%
+  inner_join(select(lorne, screen_name, quote_status_id, is_retweet, text)) %>%
+  filter(is_retweet == FALSE) %>%
   select(screen_name, text, quote_count = n) %>%
   distinct()
 
@@ -335,12 +335,12 @@ Media
 id: media
 
 ```{r has-media}
-lorne %>% 
-  mutate(has_media = !is.na(media_id)) %>% 
-  group_by(has_media) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
-    labs(x = "Has media", y = "Tweets", title = "#lornegenome 2017 tweets by media status") + 
+lorne %>%
+  mutate(has_media = !is.na(media_id)) %>%
+  group_by(has_media) %>%
+  summarise(count = n()) %>%
+  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") +
+    labs(x = "Has media", y = "Tweets", title = "#lornegenome 2017 tweets by media status") +
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
 
@@ -355,12 +355,12 @@ Most-liked media 1-5
 id: top-media-1
 
 ```{r liked-media}
-lorne_media <- lorne %>% 
-  filter(!is.na(media_id)) %>% 
+lorne_media <- lorne %>%
+  filter(!is.na(media_id)) %>%
   arrange(desc(favorite_count))
 
-lorne_media %>% 
-  slice(1:5) %>% 
+lorne_media %>%
+  slice(1:5) %>%
   select(screen_name, text, favorite_count) %>%
   kable()
 ```
@@ -370,8 +370,8 @@ Most-liked media 6-10
 id: top-media-2
 
 ```{r liked-media-2}
-lorne_media %>% 
-  slice(6:10) %>% 
+lorne_media %>%
+  slice(6:10) %>%
   select(screen_name, text, favorite_count) %>%
   kable()
 ```
@@ -389,15 +389,15 @@ id: text
 ```{r count-words}
 data("stop_words")
 
-lorne_words <- lorne %>% 
-  filter(is_retweet == FALSE) %>% 
-  unnest_tokens(word, text) %>% 
+lorne_words <- lorne %>%
+  filter(is_retweet == FALSE) %>%
+  unnest_tokens(word, text) %>%
   select(word)
 
-lorne_words %>% 
-  filter(word != "lornegenome", word != "https", word != "t.co", !word %in% tolower(lorne$screen_name), !grepl("^\\d+$", word)) %>% 
-  anti_join(stop_words) %>% 
-  count(word) %>% 
+lorne_words %>%
+  filter(word != "lornegenome", word != "https", word != "t.co", !word %in% tolower(lorne$screen_name), !grepl("^\\d+$", word)) %>%
+  anti_join(stop_words) %>%
+  count(word) %>%
   with(wordcloud(word, n, max.words = 100, min.freq = 3, colors = brewer.pal(9, "BuPu")))
 ```
 
