@@ -55,9 +55,8 @@ ismbeccb2017 %>%
 ```{r tweets-by-day}
 ismbeccb2017 %>% 
   mutate(date = as_date(created_at, tz = "Europe/Prague")) %>% 
-  group_by(date) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(date, count)) + geom_col(fill = "skyblue3") +  
+  count(date) %>% 
+  ggplot(aes(date, n)) + geom_col(fill = "skyblue3") +  
     labs(x = "Date", y = "Tweets", title = "#ismbeccb2017 tweets per day") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -79,11 +78,10 @@ ismbeccb2017 %>%
 ## Top tweeters
 ```{r tweets-top-users}
 ismbeccb2017 %>% 
-  group_by(screen_name) %>% 
-  summarise(count = n()) %>% 
-  arrange(desc(count)) %>%
+  count(screen_name) %>% 
+  arrange(desc(n)) %>%
   slice(1:20) %>% 
-  ggplot(aes(reorder(screen_name, count), count)) + geom_col(fill = "skyblue3") + coord_flip() + 
+  ggplot(aes(reorder(screen_name, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
     labs(x = "Screen Name", y = "Tweets", title = "#ismbeccb2017 tweets by user", subtitle = "top 20 users") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -144,9 +142,8 @@ write_graph(ismbeccb2017_mentions, file = "../../data/ismbeccb2017_mentions.grap
 ## Retweet proportion
 ```{r is-retweet}
 ismbeccb2017 %>% 
-  group_by(is_retweet) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_retweet, count)) + geom_col(fill = "skyblue3") + 
+  count(is_retweet) %>% 
+  ggplot(aes(is_retweet, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Is retweet", y = "Tweets", title = "#ismbeccb2017 tweets by retweet status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -203,9 +200,8 @@ ismbeccb2017 %>%
 ## Quote proportion
 ```{r is-quote}
 ismbeccb2017 %>% 
-  group_by(is_quote_status) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(is_quote_status, count)) + geom_col(fill = "skyblue3") + 
+  count(is_quote_status) %>% 
+  ggplot(aes(is_quote_status, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Is quote", y = "Tweets", title = "#ismbeccb2017 tweets by quote status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -242,9 +238,8 @@ ismbeccb2017 %>%
 ```{r has-media}
 ismbeccb2017 %>% 
   mutate(has_media = !is.na(media_id)) %>% 
-  group_by(has_media) %>% 
-  summarise(count = n()) %>% 
-  ggplot(aes(has_media, count)) + geom_col(fill = "skyblue3") + 
+  count(has_media) %>% 
+  ggplot(aes(has_media, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Has media", y = "Tweets", title = "#ismbeccb2017 tweets by media status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
