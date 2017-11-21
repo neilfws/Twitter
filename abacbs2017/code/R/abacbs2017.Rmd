@@ -210,8 +210,8 @@ abacbs2017 %>%
 ## Quote proportion
 ```{r is-quote}
 abacbs2017 %>% 
-  count(is_quote_status) %>% 
-  ggplot(aes(is_quote_status, n)) + geom_col(fill = "skyblue3") + 
+  count(is_quote) %>% 
+  ggplot(aes(is_quote, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Is quote", y = "Tweets", title = "#abacbs2017 tweets by quote status") + 
     theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
 ```
@@ -219,8 +219,8 @@ abacbs2017 %>%
 ## Quote count
 ```{r quotes-count}
 abacbs2017 %>% 
-  filter(!is.na(quote_status_id)) %>% 
-  count(quote_status_id) %>% 
+  filter(!is.na(quoted_status_id)) %>% 
+  count(quoted_status_id) %>% 
   ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
     labs(x = "Quote count", y = "Tweets", title = "#abacbs2017 distribution of quotes per tweet") + 
     scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
@@ -230,12 +230,12 @@ abacbs2017 %>%
 ## Top quotes
 ```{r most-quoted}
 abacbs2017 %>% 
-  filter(!is.na(quote_status_id)) %>% 
-  count(quote_status_id) %>% 
+  filter(!is.na(quoted_status_id)) %>% 
+  count(quoted_status_id) %>% 
   filter(n > 1) %>% 
   arrange(desc(n)) %>% 
 #  slice(1:10) %>% 
-  inner_join(select(abacbs2017, screen_name, quote_status_id, is_retweet, text)) %>% 
+  inner_join(select(abacbs2017, screen_name, quoted_status_id, is_retweet, text)) %>% 
   filter(is_retweet == FALSE) %>% 
   select(screen_name, text, quote_count = n) %>%
   distinct() %>%
@@ -247,7 +247,7 @@ abacbs2017 %>%
 ## Media count
 ```{r has-media}
 abacbs2017 %>% 
-  mutate(has_media = !is.na(media_id)) %>% 
+  mutate(has_media = !is.na(media_url)) %>% 
   count(has_media) %>% 
   ggplot(aes(has_media, n)) + geom_col(fill = "skyblue3") + 
     labs(x = "Has media", y = "Tweets", title = "#abacbs2017 tweets by media status") + 
@@ -257,7 +257,7 @@ abacbs2017 %>%
 ## Top media
 ```{r liked-media}
 abacbs2017_media <- abacbs2017 %>% 
-  filter(!is.na(media_id)) %>% 
+  filter(!is.na(media_url)) %>% 
   arrange(desc(favorite_count)) %>%
   filter(favorite_count > 0)
 
@@ -277,7 +277,8 @@ The 100 words used 3 or more times.
 data("stop_words")
 
 abacbs2017 %>% 
-  filter(is_retweet == FALSE) %>% 
+  filter(is_retweet == FALSE) %>%
+  select(text) %>%
   unnest_tokens(word, text) %>% 
   select(word) %>% 
   filter(!word %in% c("abacbs17", "abacbs", "combine17", "combine", "https", "t.co", "amp"),
@@ -295,6 +296,6 @@ abacbs2017 %>%
   count(chars) %>% 
   ggplot(aes(chars, n)) + 
     geom_col(color = "skyblue3", fill = "skyblue3") + 
-    scale_x_continuous(breaks = seq(0, 160, 20)) + 
+    scale_x_continuous(breaks = seq(0, 300, 20)) + 
     labs(x = "characters", y = "count", title = "#abacbs17 tweet length")
 ```

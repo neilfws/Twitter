@@ -1,7 +1,7 @@
 ---
 title: "Twitter Coverage of the Australian Bioinformatics & Computational Biology Society Conference 2017"
 author: "Neil Saunders"
-date: "2017-11-20 10:54:53"
+date: "2017-11-21 03:54:22"
 output: 
   html_document: 
     keep_md: yes
@@ -13,7 +13,7 @@ output:
 
 
 # Introduction
-An analysis of tweets from the ABACBS 2017 meeting. 2032 tweets were collected using the `rtweet` R package:
+An analysis of tweets from the ABACBS 2017 meeting. 2006 tweets were collected using the `rtweet` R package:
 
 
 ```r
@@ -33,19 +33,19 @@ Rather confusingly, some of the tweets have neither *abacbs* or *combine* in the
 <tbody>
   <tr>
    <td style="text-align:left;"> abacbs </td>
-   <td style="text-align:right;"> 1362 </td>
+   <td style="text-align:right;"> 1577 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> combine </td>
-   <td style="text-align:right;"> 250 </td>
+   <td style="text-align:right;"> 262 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> abacbs + combine </td>
-   <td style="text-align:right;"> 146 </td>
+   <td style="text-align:right;"> 167 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> neither </td>
-   <td style="text-align:right;"> 274 </td>
+   <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
 </table>
@@ -115,7 +115,7 @@ Better to view the original PNG file in the `data` directory.
   </tr>
   <tr>
    <td style="text-align:left;"> abacbs </td>
-   <td style="text-align:left;"> Terry Speed says he had no vision: &quot;I'm a statistician, we do little things. Now when someone asks me, I say I want… https://t.co/FinvXUjCec </td>
+   <td style="text-align:left;"> Terry Speed says he had no vision: &quot;I'm a statistician, we do little things. Now when someone asks me, I say I want to cure cancer.&quot; #abacbs17 </td>
    <td style="text-align:right;"> 18 </td>
   </tr>
   <tr>
@@ -125,27 +125,27 @@ Better to view the original PNG file in the `data` directory.
   </tr>
   <tr>
    <td style="text-align:left;"> hdashnow </td>
-   <td style="text-align:left;"> #lornegenome 2018 will have a dedicated computational biology/bioinformatics session. Bioinformatics and comp bio a… https://t.co/aZSFec9zDr </td>
+   <td style="text-align:left;"> #lornegenome 2018 will have a dedicated computational biology/bioinformatics session. Bioinformatics and comp bio abstracts from encouraged! Oral abstract deadline extended to Friday 24th Nov https://t.co/gswSQVoTHk  #COMBINE17 #ABACBS17 </td>
    <td style="text-align:right;"> 15 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> atma_ivancevic </td>
-   <td style="text-align:left;"> You know it's a #BioInformatics conference when every speaker lists their @biorxivpreprint and @github code… https://t.co/wE2FxPPCeo </td>
+   <td style="text-align:left;"> You know it's a #BioInformatics conference when every speaker lists their @biorxivpreprint and @github code #openscience #openaccess #sharingiscaring #abacbs17 </td>
    <td style="text-align:right;"> 12 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> shazanfar </td>
-   <td style="text-align:left;"> Do you want to be more involved in the COMBINE @combine_au community? Joining the exec team is a great way to impro… https://t.co/xcbJEJeiPE </td>
+   <td style="text-align:left;"> Do you want to be more involved in the COMBINE @combine_au community? Joining the exec team is a great way to improve your leadership skills, build your confidence and help the COMBINE student community! Nominate: https://t.co/MvY0I1OIME #abacbs17 #COMBINE17 @abacbs </td>
    <td style="text-align:right;"> 11 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> milicang </td>
-   <td style="text-align:left;"> Congratulations to @CSL travel award recipients @annaquagli , @_StuartLee , @_lazappi_ and Virginie Perlo #BioCAsia… https://t.co/5pYJIRhB5A </td>
+   <td style="text-align:left;"> Congratulations to @CSL travel award recipients @annaquagli , @_StuartLee , @_lazappi_ and Virginie Perlo #BioCAsia 2017 #abacbs17 https://t.co/10HXvlTkBB </td>
    <td style="text-align:right;"> 10 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> MelanieBahlo </td>
-   <td style="text-align:left;"> Running conferences is a hard job, which takes guts &amp;amp; persistence. We do not want people scared off doing this. It… https://t.co/90wLWafL5c </td>
+   <td style="text-align:left;"> Running conferences is a hard job, which takes guts &amp;amp; persistence. We do not want people scared off doing this. It is a part of career progression. Thank you so much for a great conference: #abacbs17 &amp;amp; congratulations to David Lynn &amp;amp; his team. I loved it. </td>
    <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
@@ -185,12 +185,12 @@ Better to view the original PNG file in the `data` directory.
   </tr>
   <tr>
    <td style="text-align:left;"> MelanieBahlo </td>
-   <td style="text-align:left;"> Running conferences is a hard job, which takes guts &amp;amp; persistence. We do not want people scared off doing this. It… https://t.co/90wLWafL5c </td>
+   <td style="text-align:left;"> Running conferences is a hard job, which takes guts &amp;amp; persistence. We do not want people scared off doing this. It is a part of career progression. Thank you so much for a great conference: #abacbs17 &amp;amp; congratulations to David Lynn &amp;amp; his team. I loved it. </td>
    <td style="text-align:right;"> 50 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> abacbs </td>
-   <td style="text-align:left;"> Terry Speed says he had no vision: &quot;I'm a statistician, we do little things. Now when someone asks me, I say I want… https://t.co/FinvXUjCec </td>
+   <td style="text-align:left;"> Terry Speed says he had no vision: &quot;I'm a statistician, we do little things. Now when someone asks me, I say I want to cure cancer.&quot; #abacbs17 </td>
    <td style="text-align:right;"> 47 </td>
   </tr>
   <tr>
@@ -200,7 +200,7 @@ Better to view the original PNG file in the `data` directory.
   </tr>
   <tr>
    <td style="text-align:left;"> atma_ivancevic </td>
-   <td style="text-align:left;"> You know it's a #BioInformatics conference when every speaker lists their @biorxivpreprint and @github code… https://t.co/wE2FxPPCeo </td>
+   <td style="text-align:left;"> You know it's a #BioInformatics conference when every speaker lists their @biorxivpreprint and @github code #openscience #openaccess #sharingiscaring #abacbs17 </td>
    <td style="text-align:right;"> 35 </td>
   </tr>
   <tr>
@@ -210,7 +210,7 @@ Better to view the original PNG file in the `data` directory.
   </tr>
   <tr>
    <td style="text-align:left;"> RLadiesAU </td>
-   <td style="text-align:left;"> Our past first year, our vision, our speakers and sponsors in one infographic! Thanks to @annaquagli and to… https://t.co/oWYI8wiwbj </td>
+   <td style="text-align:left;"> Our past first year, our vision, our speakers and sponsors in one infographic! Thanks to @annaquagli and to @robbie_bonelli for designing it! Grab one at #COMBINE17 or @abacbs and spread the word! https://t.co/5xcY7gxMPs </td>
    <td style="text-align:right;"> 32 </td>
   </tr>
   <tr>
@@ -244,54 +244,55 @@ Better to view the original PNG file in the `data` directory.
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> atma_ivancevic </td>
-   <td style="text-align:left;"> @AliciaOshlack lab singlehandedly trying to close the gender gap in #bioinfo #binfiebaby #abacbs17 https://t.co/4gvwKfwtuh </td>
-   <td style="text-align:right;"> 8 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> hdashnow </td>
-   <td style="text-align:left;"> .@nadia_davidson @JovMaksimovic @BelindaPhipson sorry you're not here at #ABACBS17 https://t.co/TBmSz5MO57 </td>
-   <td style="text-align:right;"> 8 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> GenomeConf </td>
-   <td style="text-align:left;"> For all of you at #COMBINE17 #abacbs17 . We have more opportunities for comp biol and bioinf presentations this yea… https://t.co/Q7h9dEj9lA </td>
-   <td style="text-align:right;"> 6 </td>
-  </tr>
-  <tr>
    <td style="text-align:left;"> robbie_bonelli </td>
    <td style="text-align:left;"> Don't miss out on @RLadiesAU here at #COMBINE17 #abacbs17! Grab a pamphlet or simply talk to us! :D https://t.co/PddTGsmDRB </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> combine_au </td>
    <td style="text-align:left;"> It's great to have @RLadiesAU and @RLadiesAdelaide representing at #COMBINE17 and #abacbs17 this week! #rstats https://t.co/kBsHrWTHkB </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> AylaLvL </td>
-   <td style="text-align:left;"> &quot;At any point where you have a choice, choose the thing thats most interesting&quot; Career advice from Des Higgins… https://t.co/pdbGHvaB6y </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> AliciaOshlack </td>
+   <td style="text-align:left;"> Obviously too easy! Before lunch on the first day. Keep going to get a full card everyone! #confbingo #abacbs17 https://t.co/2cqeH0ah6q </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> _lazappi_ </td>
-   <td style="text-align:left;"> Relevant to many at #abacbs17, more details about useR! 2018 in Brisbane https://t.co/pBlipof9tt </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> LonsBio </td>
+   <td style="text-align:left;"> Winning all the prizes! #abacbs17  https://t.co/GpibqMzHQC </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> karinv </td>
-   <td style="text-align:left;"> Coolest summary of one of my talks I've ever seem. Thanks @_lazappi_! #abacbs17 https://t.co/BCRpPRkbG6 </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> annaquagli </td>
+   <td style="text-align:left;"> The second genetic eye disease treated so far #abacbs17! Cousin of #MacTel showcased by @robbie_bonelli https://t.co/coW9orShQw </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> combine_au </td>
+   <td style="text-align:left;"> Yay more fantastic student talks! #abacbs17 https://t.co/fYFLcM57IP </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> atma_ivancevic </td>
    <td style="text-align:left;"> When your plots are so pretty they get more tweets than your science #firstworldproblems #dataviz #abacbs17 https://t.co/ueOi8sYKqu </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> abacbs </td>
    <td style="text-align:left;"> Early #christmas festivities at @sahmriAU #abacbs17 https://t.co/0cUhpTWVmg </td>
-   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> robbie_bonelli </td>
+   <td style="text-align:left;"> .@bluebirdi shows us how to give an awesome and engaging presentation even when preceded by Terry Speed! #YouAlsoHadPrettyPictures!
+#abacbs17 https://t.co/5DREmTEe5o </td>
+   <td style="text-align:right;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AliciaOshlack </td>
+   <td style="text-align:left;"> And doing a great job! @bluebirdi #abacbs17 https://t.co/QtCSCqbsow </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
 </tbody>
 </table>
@@ -321,6 +322,11 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:right;"> 35 </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> RLadiesAU </td>
+   <td style="text-align:left;"> Our past first year, our vision, our speakers and sponsors in one infographic! Thanks to @annaquagli and to @robbie_bonelli for designing it! Grab one at #COMBINE17 or @abacbs and spread the word! https://t.co/5xcY7gxMPs </td>
+   <td style="text-align:right;"> 32 </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> hdashnow </td>
    <td style="text-align:left;"> We're in Adelaide ready for #COMBINE17 #abacbs17! Is that @sahmriAU in the distance? https://t.co/yQYMm4P249 </td>
    <td style="text-align:right;"> 32 </td>
@@ -336,6 +342,11 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:right;"> 29 </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> _lazappi_ </td>
+   <td style="text-align:left;"> .@AliciaOshlack presenting on the behalf of @nadia_davidson who can't be here sure to being part of the @MCRI_for_kids Bioinformatics baby boom #abacbs17 https://t.co/mSlzXAjX5n </td>
+   <td style="text-align:right;"> 27 </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> torstenseemann </td>
    <td style="text-align:left;"> Genomic Tetris is a game that needs to be written #abacbs17 @jaredtsimpson @sjackman @ianholmes ? https://t.co/jRaLtLpk3A </td>
    <td style="text-align:right;"> 27 </td>
@@ -346,20 +357,9 @@ Better to view the original PNG file in the `data` directory.
    <td style="text-align:right;"> 27 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> MonashBioinfo </td>
-   <td style="text-align:left;"> We are off to #abacbs17 #COMBINE17 See you there! https://t.co/pkv4wA0BK3 </td>
-   <td style="text-align:right;"> 25 </td>
-  </tr>
-  <tr>
    <td style="text-align:left;"> torstenseemann </td>
-   <td style="text-align:left;"> Did you pass the @JosephPowell_UQ t-SNE Rorschach test? #abacbs17 #shark #dolphins https://t.co/3Ko7RdaRds </td>
-   <td style="text-align:right;"> 24 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> hdashnow </td>
-   <td style="text-align:left;"> Ready for #confbingo! Got my card from https://t.co/xGKvICHstd
-#COMBINE17 #abacbs17 https://t.co/VDje5oNj2C </td>
-   <td style="text-align:right;"> 24 </td>
+   <td style="text-align:left;"> Now @hdashnow speaking on pathogenic short tandem repeat expansions in humans and her STRretch software #COMBINE17 @AliciaOshlack https://t.co/raW4r4ZCGS </td>
+   <td style="text-align:right;"> 27 </td>
   </tr>
 </tbody>
 </table>
