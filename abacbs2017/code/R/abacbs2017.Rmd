@@ -113,8 +113,8 @@ Better to view the original PNG file in the `data` directory.
 
 ```{r reply-network, eval=FALSE}
 abacbs2017_replies <- abacbs2017 %>% 
-  filter(!is.na(reply_to_screen_name)) %>% 
-  select(screen_name, reply_to_screen_name) %>% 
+  filter(!is.na(in_reply_to_status_screen_name)) %>% 
+  select(screen_name, in_reply_to_status_screen_name) %>% 
   graph.data.frame(directed = TRUE)
 
 V(abacbs2017_replies)$label <- V(abacbs2017_replies)$name
@@ -132,6 +132,8 @@ Better to view the original PNG file in the `data` directory.
 
 ```{r mentions-network, eval=FALSE}
 abacbs2017_mentions <- abacbs2017 %>% 
+  mutate(mentions_screen_name = sapply(mentions_screen_name, 
+                           function(x) paste(x, collapse = " "))) %>%
   filter(!is.na(mentions_screen_name)) %>% 
   select(screen_name, mentions_screen_name) %>% 
   mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
