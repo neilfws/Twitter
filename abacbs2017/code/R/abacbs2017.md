@@ -1,7 +1,7 @@
 ---
 title: "Twitter Coverage of the Australian Bioinformatics & Computational Biology Society Conference 2017"
 author: "Neil Saunders"
-date: "2017-11-21 03:54:22"
+date: "2017-11-21 03:58:50"
 output: 
   html_document: 
     keep_md: yes
@@ -20,8 +20,6 @@ An analysis of tweets from the ABACBS 2017 meeting. 2006 tweets were collected u
 library(rtweet)
 abacbs2017 <- search_tweets("#abacbs17 OR #combine17", 5000)
 ```
-
-Rather confusingly, some of the tweets have neither *abacbs* or *combine* in their hashtags, but do appear to originate from the meeting.
 
 <table>
  <thead>

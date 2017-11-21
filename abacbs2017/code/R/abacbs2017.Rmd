@@ -34,8 +34,6 @@ library(rtweet)
 abacbs2017 <- search_tweets("#abacbs17 OR #combine17", 5000)
 ```
 
-Rather confusingly, some of the tweets have neither *abacbs* or *combine* in their hashtags, but do appear to originate from the meeting.
-
 ```{r count-hashtags}
 hashtag_count <- tibble(hashtag = c("abacbs", "combine", "abacbs + combine", "neither"),
                         count = c(abacbs2017 %>% 
