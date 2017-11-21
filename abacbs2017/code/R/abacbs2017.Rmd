@@ -113,8 +113,8 @@ Better to view the original PNG file in the `data` directory.
 
 ```{r reply-network, eval=FALSE}
 abacbs2017_replies <- abacbs2017 %>% 
-  filter(!is.na(in_reply_to_status_screen_name)) %>% 
-  select(screen_name, in_reply_to_status_screen_name) %>% 
+  filter(!is.na(reply_to_screen_name)) %>% 
+  select(screen_name, reply_to_screen_name) %>% 
   graph.data.frame(directed = TRUE)
 
 V(abacbs2017_replies)$label <- V(abacbs2017_replies)$name

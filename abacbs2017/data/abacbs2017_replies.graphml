@@ -338,11 +338,6 @@
       <data key="v_label">JennyBryan</data>
       <data key="v_id">JennyBryan</data>
     </node>
-    <node id="n66">
-      <data key="v_name">MrsLaviniaG</data>
-      <data key="v_label">MrsLaviniaG</data>
-      <data key="v_id">MrsLaviniaG</data>
-    </node>
     <edge source="n0" target="n8">
     </edge>
     <edge source="n1" target="n1">
@@ -391,8 +386,6 @@
     </edge>
     <edge source="n3" target="n3">
     </edge>
-    <edge source="n3" target="n3">
-    </edge>
     <edge source="n3" target="n37">
     </edge>
     <edge source="n9" target="n7">
@@ -420,8 +413,6 @@
     <edge source="n7" target="n7">
     </edge>
     <edge source="n14" target="n41">
-    </edge>
-    <edge source="n16" target="n41">
     </edge>
     <edge source="n16" target="n41">
     </edge>
@@ -676,10 +667,6 @@
     <edge source="n8" target="n8">
     </edge>
     <edge source="n15" target="n23">
-    </edge>
-    <edge source="n15" target="n66">
-    </edge>
-    <edge source="n8" target="n8">
     </edge>
   </graph>
 </graphml>
