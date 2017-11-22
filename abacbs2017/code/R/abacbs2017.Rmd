@@ -134,10 +134,10 @@ Better to view the original PNG file in the `data` directory.
 abacbs2017_mentions <- abacbs2017 %>% 
   mutate(mentions_screen_name = sapply(mentions_screen_name, 
                            function(x) paste(x, collapse = " "))) %>%
-  filter(!is.na(mentions_screen_name)) %>% 
   select(screen_name, mentions_screen_name) %>% 
   mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
   unnest(mentions_screen_name) %>% 
+  filter(mentions_screen_name != "NA") %>% 
   graph.data.frame()
 
 V(abacbs2017_mentions)$label <- V(abacbs2017_mentions)$name
