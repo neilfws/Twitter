@@ -2,7 +2,9 @@
 title: "Twitter Coverage of the ISMB/ECCB Conference 2017"
 author: "Neil Saunders"
 date: "`r Sys.time()`"
-output: 
+output:
+  github_document:
+    toc: yes
   html_document: 
     keep_md: yes
     number_sections: yes
