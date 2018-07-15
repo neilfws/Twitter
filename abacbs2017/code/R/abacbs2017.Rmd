@@ -175,6 +175,7 @@ abacbs2017 %>%
 ```
 
 # Favourites
+
 ## Favourite proportion
 ```{r has-favorite}
 abacbs2017 %>% 
@@ -204,6 +205,7 @@ abacbs2017 %>%
 ```
 
 # Quotes
+
 ## Quote proportion
 ```{r is-quote}
 abacbs2017 %>% 
@@ -241,6 +243,7 @@ abacbs2017 %>%
 ```
 
 # Media
+
 ## Media count
 ```{r has-media}
 abacbs2017 %>% 
@@ -265,6 +268,7 @@ abacbs2017_media %>%
 ```
 
 ### Most liked media image
+
 ![](`r abacbs2017_media[1, "media_url"]`)
 
 # Tweet text

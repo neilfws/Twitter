@@ -1,7 +1,7 @@
 Twitter Coverage of the Australian Bioinformatics & Computational Biology Society Conference 2017
 ================
 Neil Saunders
-2018-07-16 09:17:56
+2018-07-16 09:25:47
 
 -   [Introduction](#introduction)
 -   [Timeline](#timeline)
