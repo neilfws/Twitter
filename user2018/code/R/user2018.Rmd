@@ -59,9 +59,12 @@ user2018 %>%
 user2018 %>% 
   count(screen_name) %>% 
   filter(n >= 20) %>% 
-  ggplot(aes(reorder(screen_name, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
+  ggplot(aes(reorder(screen_name, n), n)) + 
+  geom_col(fill = "skyblue3", color = "skyblue3") + 
+  coord_flip() + 
     labs(x = "Screen Name", y = "Tweets", title = "#user2018 tweets by user", subtitle = "users with >= 20 tweets") + 
-    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+    theme(axis.text = element_text(size = 8), 
+          axis.title = element_text(size = 12))
 ```
 
 ## Sources
@@ -72,7 +75,8 @@ distinct(screen_name, source) %>%
   filter(n >= 5) %>%
   ggplot(aes(reorder(source, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
     labs(x = "Source", y = "Tweets", title = "#user2018 tweets by source", subtitle = "sources with >= 5 tweets") + 
-    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+    theme(axis.text = element_text(size = 12), 
+          axis.title = element_text(size = 12))
 ```
 
 # Networks
