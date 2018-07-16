@@ -152,7 +152,7 @@ user2018 %>%
   arrange(desc(retweet_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  kable(format = "html")
+  kable(format = "html", escape = FALSE)
 ```
 
 # Favourites
@@ -181,7 +181,7 @@ user2018 %>%
   arrange(desc(favorite_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  kable(format = "html")
+  kable(format = "html", escape = FALSE)
 ```
 
 # Quotes
@@ -218,7 +218,7 @@ user2018 %>%
   select(screen_name, text, quote_count = n) %>%
   distinct() %>%
   slice(1:10) %>%
-  kable(format = "html")
+  kable(format = "html", escape = FALSE)
 ```
 
 # Media
@@ -242,7 +242,7 @@ user2018 %>%
   arrange(desc(favorite_count)) %>% 
   select(screen_name, text, favorite_count) %>% 
   slice(1:10) %>%
-  kable(format = "html")
+  kable(format = "html", escape = FALSE)
 ```
 
 ### Most liked media image
