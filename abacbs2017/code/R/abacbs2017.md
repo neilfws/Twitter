@@ -1,7 +1,7 @@
 Twitter Coverage of the Australian Bioinformatics & Computational Biology Society Conference 2017
 ================
 Neil Saunders
-2018-07-16 22:45:12
+2018-07-16 22:58:23
 
 Introduction
 ============
@@ -13,7 +13,36 @@ library(rtweet)
 abacbs2017 <- search_tweets("#abacbs17 OR #combine17", 5000)
 ```
 
-Quitting from lines 33-53 (abacbs2017.Rmd) Error in pandoc.table.return(...) : Wrong number of parameters (3 instead of *2*) passed: justify Calls: <Anonymous> ... pander.data.frame -&gt; pandoc.table -&gt; cat -&gt; pandoc.table.return
+<table style="width:36%;">
+<colgroup>
+<col width="26%" />
+<col width="9%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">hashtag</th>
+<th align="right">count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">abacbs</td>
+<td align="right">1577</td>
+</tr>
+<tr class="even">
+<td align="left">combine</td>
+<td align="right">262</td>
+</tr>
+<tr class="odd">
+<td align="left">abacbs + combine</td>
+<td align="right">167</td>
+</tr>
+<tr class="even">
+<td align="left">neither</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 
 For this analysis we retain all tweets and treat the ABACBS and COMBINE meetings as one event.
 

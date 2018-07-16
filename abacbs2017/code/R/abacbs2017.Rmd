@@ -49,7 +49,7 @@ hashtag_count <- tibble(hashtag = c("abacbs", "combine", "abacbs + combine", "ne
                                     nrow()))
 
 hashtag_count %>%
-  pander(justify = c("left", "left", "right"))
+  pander(justify = c("left", "right"))
 ```
 
 For this analysis we retain all tweets and treat the ABACBS and COMBINE meetings as one event.
