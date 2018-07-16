@@ -1,7 +1,7 @@
 Twitter Coverage of the ISMB/ECCB Conference 2017
 ================
 Neil Saunders
-2018-07-16 22:47:48
+2018-07-16 23:11:01
 
 Introduction
 ============
@@ -81,100 +81,68 @@ Retweet count
 Top retweets
 ------------
 
-<table style="width:99%;">
-<caption>Table continues below</caption>
+<table>
 <colgroup>
-<col width="25%" />
-<col width="73%" />
+<col width="20%" />
+<col width="62%" />
+<col width="17%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th align="left">screen_name</th>
 <th align="left">text</th>
+<th align="right">retweet_count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">reactome</td>
 <td align="left">Try out our new interactive textbook illustrations accessible via the #PathwayBrowser <a href="https://t.co/zGzbfEbQSQ" class="uri">https://t.co/zGzbfEbQSQ</a>… <a href="https://t.co/fMWuYydPM4" class="uri">https://t.co/fMWuYydPM4</a></td>
+<td align="right">77</td>
 </tr>
 <tr class="even">
 <td align="left">aphillippy</td>
 <td align="left">I'm hiring this fall! Please talk to me at #ISMB2017 if you'd like to do research with us (<a href="https://t.co/yzZ9zYYRMP" class="uri">https://t.co/yzZ9zYYRMP</a>)</td>
+<td align="right">66</td>
 </tr>
 <tr class="odd">
 <td align="left">GreeneScientist</td>
 <td align="left">Don't forget to get your applications ready for the 2018 Research Parasite Awards! #ISMBECCB… <a href="https://t.co/hFN2FK5AeT" class="uri">https://t.co/hFN2FK5AeT</a></td>
+<td align="right">52</td>
 </tr>
 <tr class="even">
 <td align="left">iscb</td>
 <td align="left">ISMB/ECCB recorded talks since 2009 are available for ISCB members at ISCBtv <a href="https://t.co/qbL0rpijHY" class="uri">https://t.co/qbL0rpijHY</a> #ismbeccb <a href="https://t.co/tq685DbWa7" class="uri">https://t.co/tq685DbWa7</a></td>
+<td align="right">41</td>
 </tr>
 <tr class="odd">
 <td align="left">nils_gehlenborg</td>
 <td align="left">My lab <span class="citation">@HarvardDBMI</span> is hiring postdocs in #datavis/#cancer/#genomics/#epigenomics/#fairdata:… <a href="https://t.co/Plb1aKxPHA" class="uri">https://t.co/Plb1aKxPHA</a></td>
+<td align="right">40</td>
 </tr>
 <tr class="even">
 <td align="left">LauCan88</td>
 <td align="left">Tips for a successful research career by Christine Orengo #SCS17 #ismbeccb <a href="https://t.co/7y8DdHlrIb" class="uri">https://t.co/7y8DdHlrIb</a></td>
+<td align="right">40</td>
 </tr>
 <tr class="odd">
 <td align="left">VeraMatser</td>
 <td align="left">BoF How to build your scientific network as an early career researcher <span class="citation">@iscbsc</span> #ismbeccb #ismb17 #sketchnoting <a href="https://t.co/QHwsDwyUOt" class="uri">https://t.co/QHwsDwyUOt</a></td>
+<td align="right">36</td>
 </tr>
 <tr class="even">
 <td align="left">Alfons_Valencia</td>
 <td align="left">Happy to announce Tramontano's fellowship prog. Col of <span class="citation">@iscb</span> <span class="citation">@iscbsc</span> w #casp <span class="citation">@ISBSIB</span> + other joining soon + individual donations. #ismbeccb</td>
+<td align="right">35</td>
 </tr>
 <tr class="odd">
 <td align="left">KarelBrinda</td>
 <td align="left">Current challenges in genome assembly by <span class="citation">@aphillippy</span>. #ismbeccb <span class="citation">@HiTSeq</span> <a href="https://t.co/3YAwEjVrxe" class="uri">https://t.co/3YAwEjVrxe</a></td>
+<td align="right">31</td>
 </tr>
 <tr class="even">
 <td align="left">andrewsu</td>
 <td align="left">Posted slides for my afternoon talk at #ismbeccb #BOSC2017 on biomedical data integration using #wikidata… <a href="https://t.co/z3pp8ooIHO" class="uri">https://t.co/z3pp8ooIHO</a></td>
-</tr>
-</tbody>
-</table>
-
-<table style="width:21%;">
-<colgroup>
-<col width="20%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="right">retweet_count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">77</td>
-</tr>
-<tr class="even">
-<td align="right">66</td>
-</tr>
-<tr class="odd">
-<td align="right">52</td>
-</tr>
-<tr class="even">
-<td align="right">41</td>
-</tr>
-<tr class="odd">
-<td align="right">40</td>
-</tr>
-<tr class="even">
-<td align="right">40</td>
-</tr>
-<tr class="odd">
-<td align="right">36</td>
-</tr>
-<tr class="even">
-<td align="right">35</td>
-</tr>
-<tr class="odd">
-<td align="right">31</td>
-</tr>
-<tr class="even">
 <td align="right">30</td>
 </tr>
 </tbody>
