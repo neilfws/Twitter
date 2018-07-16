@@ -3,7 +3,12 @@ title: "Twitter Coverage of the useR Conference 2018"
 author: "Neil Saunders"
 date: "`r Sys.time()`"
 output:
-  github_document
+  github_document:
+  html_document: 
+    keep_md: yes
+    number_sections: yes
+    toc: yes
+    toc_float: yes
 ---
 
 ```{r setup, include=FALSE}
