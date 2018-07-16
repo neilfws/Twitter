@@ -3,23 +3,16 @@ title: "Twitter Coverage of the VIZBI Meeting 2017"
 author: "Neil Saunders"
 date: "`r Sys.time()`"
 output:
-  github_document:
-    toc: yes
-  html_document: 
-    keep_md: yes
-    number_sections: yes
-    toc: yes
-    toc_float: yes
+  github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 library(rtweet)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+library(tidyverse)
 library(lubridate)
 library(knitr)
+library(pander)
 library(wordcloud)
 library(tidytext)
 library(igraph)
@@ -146,7 +139,7 @@ vizbi17 %>%
   arrange(desc(retweet_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  kable(format = "html")
+  pander(justify = c("left", "left", "right"))
 ```
 
 # Favourites
@@ -175,7 +168,7 @@ vizbi17 %>%
   arrange(desc(favorite_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  kable(format = "html")
+  pander(justify = c("left", "left", "right"))
 ```
 
 # Quotes
@@ -212,7 +205,7 @@ vizbi17 %>%
   select(screen_name, text, quote_count = n) %>%
   distinct() %>%
   slice(1:10) %>%
-  kable(format = "html")
+  pander(justify = c("left", "left", "right"))
 ```
 
 # Media
@@ -236,7 +229,7 @@ vizbi17_media <- vizbi17 %>%
 vizbi17_media %>%
   slice(1:10) %>% 
   select(screen_name, text, favorite_count) %>%
-  kable(format = "html")
+  pander(justify = c("left", "left", "right"))
 ```
 
 ### Most liked media image
