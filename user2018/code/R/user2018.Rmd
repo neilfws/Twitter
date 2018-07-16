@@ -1,0 +1,265 @@
+---
+title: "Twitter Coverage of the useR Conference 2018"
+author: "Neil Saunders"
+date: "`r Sys.time()`"
+output:
+  github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(rtweet)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(wordcloud)
+library(tidytext)
+library(igraph)
+
+theme_set(theme_light())
+user2018 <- readRDS("../../data/user2018.rds")
+```
+
+# Introduction
+An analysis of tweets from the useR 2018 meeting. `r nrow(user2018)` tweets were collected using the `rtweet` R package:
+
+```{r search-twitter, eval=FALSE, echo=TRUE}
+library(rtweet)
+user2018 <- search_tweets("#useR2018", 10000)
+```
+
+# Timeline
+## Tweets by day
+```{r tweets-by-day}
+user2018 %>% 
+  mutate(date = as_date(created_at, tz = "Australia/Melbourne")) %>% 
+  count(date) %>% 
+  ggplot(aes(date, n)) + geom_col(fill = "skyblue3") +  
+    labs(x = "Date", y = "Tweets", title = "#user2018 tweets per day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Tweets by day and time
+Filtered for dates July 10-15, Brisbane time.
+```{r tweets-by-day-hour}
+user2018 %>% 
+  mutate(datetime = as_datetime(created_at, tz = "Australia/Brisbane"), hour = hour(datetime)) %>% 
+  group_by(date = as_date(datetime), hour) %>% 
+  summarise(count = n()) %>% 
+  filter(date >= as_date("2018-07-10"), date <= as_date("2018-07-15")) %>% 
+  ggplot(aes(hour, count)) + geom_col(fill = "skyblue3") + 
+  facet_grid(strftime(date, "%b %d") ~ .) + 
+    labs(x = "Hour", y = "Tweets", title = "#user2018 tweets by time of day") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Users
+## Top tweeters
+```{r tweets-top-users}
+user2018 %>% 
+  count(screen_name) %>% 
+  filter(n >= 20) %>% 
+  ggplot(aes(reorder(screen_name, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Screen Name", y = "Tweets", title = "#user2018 tweets by user", subtitle = "users with >= 20 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Sources
+```{r tweets-top-sources}
+user2018 %>% 
+distinct(screen_name, source) %>%
+  count(source) %>% 
+  filter(n >= 5) %>%
+  ggplot(aes(reorder(source, n), n)) + geom_col(fill = "skyblue3") + coord_flip() + 
+    labs(x = "Source", y = "Tweets", title = "#user2018 tweets by source", subtitle = "sources with >= 5 tweets") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+# Networks
+## Replies
+The "replies network", composed from users who reply directly to one another.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r reply-network, eval=FALSE}
+user2018_replies <- user2018 %>% 
+  filter(!is.na(reply_to_screen_name)) %>% 
+  select(screen_name, reply_to_screen_name) %>% 
+  graph.data.frame(directed = TRUE)
+
+V(user2018_replies)$label <- V(user2018_replies)$name
+V(user2018_replies)$id    <- V(user2018_replies)$name
+
+write_graph(user2018_replies, file = "../../data/user2018_replies.graphml", format = "graphml")
+```
+
+![](../../data/user2018_replies.png)
+
+## Mentions
+The "mentions network", where users mention other users in their tweets. Filtered for K-core >= 3.
+
+Better to view the original PNG file in the `data` directory.
+
+```{r mentions-network, eval=FALSE}
+user2018_mentions <- user2018 %>% 
+  filter(!is.na(mentions_screen_name)) %>% 
+  select(screen_name, mentions_screen_name) %>% 
+  unnest(mentions_screen_name) %>% 
+  mutate(mentions_screen_name = strsplit(mentions_screen_name, " ")) %>% 
+  unnest(mentions_screen_name) %>% 
+  graph.data.frame()
+
+V(user2018_mentions)$label <- V(user2018_mentions)$name
+V(user2018_mentions)$id    <- V(user2018_mentions)$name
+
+write_graph(user2018_mentions, file = "../../data/user2018_mentions_k3.graphml", format = "graphml")
+```
+
+![](../../data/user2018_mentions_k3.png)
+
+# Retweets
+## Retweet proportion
+```{r is-retweet}
+user2018 %>% 
+  count(is_retweet) %>% 
+  ggplot(aes(is_retweet, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is retweet", y = "Tweets", title = "#user2018 tweets by retweet status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Retweet count
+```{r retweet-count}
+user2018 %>% 
+  ggplot(aes(retweet_count)) + geom_histogram(bins = max(user2018$retweet_count), fill = "skyblue3") +
+    labs(x = "Retweet count", y = "Tweets", title = "#user2018 distribution of retweets per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top retweets
+```{r most-retweeted}
+user2018 %>% 
+  filter(is.na(retweet_status_id)) %>% 
+  select(screen_name, text, retweet_count) %>% 
+  arrange(desc(retweet_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Favourites
+## Favourite proportion
+```{r has-favorite}
+user2018 %>% 
+  mutate(has_favorite = ifelse(favorite_count > 0, TRUE, FALSE)) %>% 
+  count(has_favorite) %>%
+  ggplot(aes(has_favorite, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has favorite", y = "Tweets", title = "#user2018 tweets by favorited status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Favourite count
+```{r favorite-count}
+user2018 %>% 
+  ggplot(aes(favorite_count)) + geom_histogram(bins = max(user2018$favorite_count), fill = "skyblue3") +
+    labs(x = "Favorite count", y = "Tweets", title = "#user2018 distribution of favorites per tweet") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top favourites
+```{r most-favorited}
+user2018 %>% 
+  select(screen_name, text, favorite_count) %>% 
+  arrange(desc(favorite_count)) %>% 
+  distinct() %>%
+  slice(1:10) %>% 
+  kable(format = "html")
+```
+
+# Quotes
+## Quote proportion
+```{r is-quote}
+user2018 %>% 
+  count(is_quote) %>% 
+  ggplot(aes(is_quote, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Is quote", y = "Tweets", title = "#user2018 tweets by quote status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Quote count
+```{r quotes-count}
+user2018 %>% 
+  filter(!is.na(quoted_status_id)) %>% 
+  count(quoted_status_id) %>% 
+  ggplot(aes(n)) + geom_histogram(bins = 10, fill = "skyblue3") +
+    labs(x = "Quote count", y = "Tweets", title = "#user2018 distribution of quotes per tweet") + 
+    scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2)) + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top quotes
+```{r most-quoted}
+user2018 %>% 
+  filter(!is.na(quoted_status_id)) %>% 
+  count(quoted_status_id) %>% 
+  filter(n > 1) %>% 
+  arrange(desc(n)) %>% 
+#  slice(1:10) %>% 
+  inner_join(select(user2018, screen_name, quoted_status_id, is_retweet, text)) %>% 
+  filter(is_retweet == FALSE) %>% 
+  select(screen_name, text, quote_count = n) %>%
+  distinct() %>%
+  slice(1:10) %>%
+  kable(format = "html")
+```
+
+# Media
+## Media count
+```{r has-media}
+user2018 %>% 
+  select(media_url) %>% 
+  unnest() %>% 
+  mutate(has_media = ifelse(is.na(media_url), FALSE, TRUE)) %>% 
+  count(has_media) %>% 
+  ggplot(aes(has_media, n)) + geom_col(fill = "skyblue3") + 
+    labs(x = "Has media", y = "Tweets", title = "#user2018 tweets by media status") + 
+    theme(axis.text = element_text(size = 12), axis.title = element_text(size = 12))
+```
+
+## Top media
+```{r liked-media}
+user2018 %>% 
+  unnest(media_url) %>% 
+  filter(!is.na(media_url)) %>% 
+  arrange(desc(favorite_count)) %>% 
+  select(screen_name, text, favorite_count) %>% 
+  slice(1:10) %>%
+  kable(format = "html")
+```
+
+### Most liked media image
+![](`r user2018 %>% 
+  unnest(media_url) %>% 
+  filter(!is.na(media_url)) %>% 
+  arrange(desc(favorite_count)) %>% 
+  select(media_url) %>% 
+  slice(1) %>% 
+  unlist(use.names = FALSE)`)
+
+# Tweet text
+The 100 words used 3 or more times.
+
+```{r count-words}
+data("stop_words")
+
+user2018 %>% 
+  filter(is_retweet == FALSE) %>% 
+  unnest_tokens(word, text) %>% 
+  select(word) %>% 
+  filter(!word %in% c("user2018", "#user2018", "rstats", "rstat", "https", "t.co", "amp", "brisbane"),
+         !word %in% tolower(user2018$screen_name), 
+         !grepl("^\\d+$", word)) %>% 
+  anti_join(stop_words) %>% 
+  count(word) %>% 
+  with(wordcloud(word, n, max.words = 100, min.freq = 3, colors = brewer.pal(8, "Accent")))
+```
+
