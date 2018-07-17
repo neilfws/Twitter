@@ -139,7 +139,7 @@ vizbi17 %>%
   arrange(desc(retweet_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  pander(justify = c("left", "left", "right"))
+  pander(justify = c("left", "left", "right"), split.table = Inf)
 ```
 
 # Favourites
@@ -168,7 +168,7 @@ vizbi17 %>%
   arrange(desc(favorite_count)) %>% 
   distinct() %>%
   slice(1:10) %>% 
-  pander(justify = c("left", "left", "right"))
+  pander(justify = c("left", "left", "right"), split.table = Inf)
 ```
 
 # Quotes
@@ -205,7 +205,7 @@ vizbi17 %>%
   select(screen_name, text, quote_count = n) %>%
   distinct() %>%
   slice(1:10) %>%
-  pander(justify = c("left", "left", "right"))
+  pander(justify = c("left", "left", "right"), split.table = Inf)
 ```
 
 # Media
@@ -229,7 +229,7 @@ vizbi17_media <- vizbi17 %>%
 vizbi17_media %>%
   slice(1:10) %>% 
   select(screen_name, text, favorite_count) %>%
-  pander(justify = c("left", "left", "right"))
+  pander(justify = c("left", "left", "right"), split.table = Inf)
 ```
 
 ### Most liked media image
