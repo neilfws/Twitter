@@ -11,4 +11,5 @@ Code and data for Twitter analysis, _e.g._ conference coverage.
 1. [ismbeccb2017](https://github.com/neilfws/Twitter/tree/master/ismbeccb2017/code/R/ismbeccb2017.md) - analysis of tweets from the ISMB/ECCB Conference 2017
 1. [abacbs2017](https://github.com/neilfws/Twitter/tree/master/abacbs2017/code/R/abacbs2017.md) - analysis of tweets from the ABACBS Conference 2017
 1. [useR2018](https://github.com/neilfws/Twitter/tree/master/user2018/code/R/user2018.md) - analysis of tweets from the useR Conference 2018
+1. [useR2019](https://github.com/neilfws/Twitter/tree/master/user2019/code/R/user2019.md) - analysis of tweets from the useR Conference 2019
 1. [amca19](https://github.com/neilfws/Twitter/tree/master/amca19/hashtag_analysis.md) - analysis of tweets from the American Mosquito Control Association meeting 2019
