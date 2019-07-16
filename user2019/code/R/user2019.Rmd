@@ -265,7 +265,7 @@ user2019 %>%
   filter(is_retweet == FALSE) %>% 
   unnest_tokens(word, text) %>% 
   select(word) %>% 
-  filter(!word %in% c("user2019", "#user2019", "rstats", "rstat", "https", "t.co", "amp", "brisbane"),
+  filter(!word %in% c("user2019", "#user2019", "rstats", "rstat", "https", "t.co", "amp", "gt", "toulouse"),
          !word %in% tolower(user2019$screen_name), 
          !grepl("^\\d+$", word)) %>% 
   anti_join(stop_words) %>% 
