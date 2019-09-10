@@ -13,3 +13,4 @@ Code and data for Twitter analysis, _e.g._ conference coverage.
 1. [useR2018](https://github.com/neilfws/Twitter/tree/master/user2018/code/R/user2018.md) - analysis of tweets from the useR Conference 2018
 1. [useR2019](https://github.com/neilfws/Twitter/tree/master/user2019/code/R/user2019.md) - analysis of tweets from the useR Conference 2019
 1. [amca19](https://github.com/neilfws/Twitter/tree/master/amca19/hashtag_analysis.md) - analysis of tweets from the American Mosquito Control Association meeting 2019
+1. [sydney_transport](https://github.com/neilfws/Twitter/tree/master/sydney_transport/sydstats.md) - analysis of tweets about Sydney Trains delays from @sydstats
