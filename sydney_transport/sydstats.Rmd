@@ -1,0 +1,183 @@
+---
+title: "Data mining from Twitter posts: Sydney train delays"
+author: "Neil Saunders"
+date: "`r Sys.time()`"
+output:
+  github_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(lubridate)
+library(knitr)
+library(pander)
+
+theme_set(theme_bw())
+
+# get data
+sydstats <- readRDS("data/sydstats.RDS")
+```
+
+# Introduction
+The [\@sydstats](https://twitter.com/sydstats) Twitter account uses the [Transport for NSW Open Data API](https://opendata.transport.nsw.gov.au/) to generate daily information about delays on the Sydney train network.
+
+Summaries are posted to Twitter in a text format which is sufficiently consistent to be easily parsed for analysis and visualisation.
+
+# Getting the data
+Using the `rtweet` package:
+
+```{r datasets01, eval=FALSE, echo=TRUE}
+library(rtweet)
+sydstats <- get_timeline("SydStats", n = 3200)
+```
+
+The Twitter data can be processed into two datasets. The first dataset contains the year, month, week, day of week, percent of journeys delayed and whether the journeys were during the morning (07:00-09:00) or afternoon (16:00-18:30) peak times.
+
+First 6 rows:
+```{r datasets02}
+delays_data <- sydstats %>% 
+  filter(grepl("^Between", text), 
+         year(created_at) == 2019) %>% 
+  select(created_at, text) %>% 
+  mutate(Date = as.Date(created_at), 
+         Start = str_match(text, "^Between\\s+(.*?)\\s+")[, 2], 
+         End = str_match(text, "and\\s+(.*?)\\s+today")[, 2], 
+         delayed = str_match(text, "\\s+(\\d+)%")[, 2] %>% as.numeric(), 
+         dtstart = ymd_hm(paste(Date, Start)), 
+         dtend = ymd_hm(paste(Date, End)), 
+         ystart = year(Date),
+         mstart = month(dtstart), 
+         wstart = isoweek(dtstart), 
+         dstart = factor(wday(dtstart, label = TRUE, week_start = 1), 
+                         levels = rev(c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))), 
+         peak = factor(ifelse(hour(dtstart) == 7, "morning", "afternoon"), 
+                       levels = c("morning", "afternoon"))) %>% 
+  select(dtstart, dtend, ystart, mstart, wstart, dstart, delayed, peak)
+
+delays_data %>% 
+  slice(1:6) %>% 
+  pander(justify = c("left", "left", "right", "right", "right", "left", "right", "left"),
+         split.table = Inf)
+```
+
+The second dataset contains the date, longest delay time, service time and service name.
+
+First 6 rows:
+```{r datasets03}
+service_data <- sydstats %>% 
+  filter(grepl("^The", text), 
+         year(created_at) == 2019) %>% 
+  select(created_at, text) %>% 
+  mutate(Date = as.Date(created_at), 
+         Delay = str_match(text, "was\\s+(.*?)\\s+minutes")[, 2] %>% as.numeric(), 
+         dtime = str_match(text, "\\s+the\\s+(.*?)\\s+")[, 2],
+         service = str_match(text, ":\\d+\\s+(.*?)\\s+service")[, 2])
+
+service_data %>% 
+  select(-text) %>% 
+  slice(1:6) %>% 
+  pander(justify = c("left", "left", "right", "left", "left"),
+         split.table = Inf)
+```
+
+# Visualisation
+
+## Delayed journeys by day
+First, visualise the percentage of delayed journeys in 2019 by week, day of week and peak period. This is in effect a simplified calendar heat map, without month names.
+
+We can see that:
+
+- there are more delays in the morning compared with the afternoon
+- there are more morning delays Monday - Thursday than Friday
+- there are more morning delays on Sunday than Saturday 
+
+As there is often weekend trackwork, perhaps there are just less journeys overall on Saturday ?
+
+```{r delays01}
+delays_data %>% 
+  ggplot(aes(wstart, dstart)) + 
+  geom_tile(aes(fill = delayed), color = "black") + 
+  scale_fill_viridis_c(name = "% delayed journeys") + 
+  scale_x_continuous(breaks = seq(0, 52, 5)) +
+  facet_wrap(~peak, ncol = 1) + 
+  coord_equal() +
+  labs(x = "Week",
+       y = "Day", 
+       title = "Sydney trains delayed journeys by week and day 2019")
+```
+
+## Delayed journeys by day of week
+Next we examine the distribution of delays by day.
+
+This confirms that Monday morning is the worst time to travel, with delays to 45% or more of journeys on half of all Monday morning peak periods.
+
+The median percentage of trips delayed falls on Tuesdays, rises again and then falls to its lowest value on Fridays.
+
+```{r delays03}
+delays_data %>% 
+  mutate(dstart = wday(dtstart, label = TRUE, week_start = 1)) %>% 
+  ggplot(aes(dstart, delayed)) + 
+  geom_boxplot(fill = "slategray2") + 
+  facet_wrap(~peak, ncol = 1) +
+  labs(x = "Day",
+       y = "Delayed journeys (%)",
+       title = "Sydney trains delayed journeys distribution by weekday 2019")
+```
+
+## Delayed journeys by month
+The distribution of morning delays by month shows an interesting cyclical pattern, peaking in February and June and dropping off again in January, April and August.
+
+The peaks coincide with months after school holidays - could that be related?
+
+```{r delays02}
+delays_data %>% 
+  mutate(mstart = month(dtstart, label = TRUE)) %>% 
+  ggplot(aes(mstart, delayed)) + 
+  geom_boxplot(fill = "slategray2") + 
+  facet_wrap(~peak, ncol = 1) +
+  labs(x = "Month",
+       y = "Delayed journeys (%)",
+       title = "Sydney trains delayed journeys distribution by month 2019")
+```
+
+## Longest delayed journeys by service
+We count each time a service is named as the most delayed and plot the count for services that occur 5 or more times.
+
+```{r delays04}
+service_data %>% 
+  count(service, sort = TRUE) %>% 
+  filter(n > 4) %>% 
+  ggplot(aes(reorder(service, n), n)) + 
+  geom_col(fill = "slategray2") + 
+  coord_flip() +
+  labs(x = "Service",
+       y = "Count",
+       title = "Sydney trains most delayed services 2019",
+       subtitle = "for services named 5 or more times")
+```
+
+Then we plot the distribution of delay duration for those services, ordered by median delay duration.
+
+```{r delays05}
+service_data %>% 
+  group_by(service) %>% 
+  filter(n() > 4) %>% 
+  ungroup() %>% 
+  ggplot(aes(reorder(service, Delay, median), Delay)) + 
+  geom_boxplot(fill = "slategray2") + 
+  coord_flip() +
+  labs(x = "Service",
+       y = "Delay (minutes)",
+       title = "Sydney trains distribution of delay duration 2019",
+       subtitle = "for services named 5 or more times")
+```
+
+# Summary
+
+- expect delays
+  - on Monday mornings
+  - after school holidays
+  - in the south\-west and north\-west
+- even plain text can be useful if given a bit of structure
