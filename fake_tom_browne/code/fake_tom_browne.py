@@ -101,7 +101,7 @@ with open((script_dir / data_dir / model_file).resolve(), 'w') as f:
 # generate fake tweets and save
 print('Generating fake tweet text...\n')
 fake_tweets = []
-for i in range(100):
+for i in range(50):
     fake_tweets.append(generator.make_short_sentence(280))
 fake_tweets = pd.DataFrame(fake_tweets, columns=['text'])
 fake_tweets = fake_tweets.drop_duplicates()
