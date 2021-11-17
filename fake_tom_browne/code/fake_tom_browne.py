@@ -27,6 +27,10 @@ output_dir = '../output/'
 warnings.filterwarnings('ignore')
 nlp = spacy.load('en_core_web_sm')
 
+# fix max length error
+nlp.max_length = 1110000 # or higher
+
+
 # simple text cleaner
 def text_cleaner(text):
   text = re.sub(r'--', ' ', text)
