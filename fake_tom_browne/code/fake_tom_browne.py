@@ -28,7 +28,7 @@ warnings.filterwarnings('ignore')
 nlp = spacy.load('en_core_web_sm')
 
 # fix max length error
-nlp.max_length = 1500000 # or higher
+nlp.max_length = 1600000 # or higher
 
 
 # simple text cleaner
